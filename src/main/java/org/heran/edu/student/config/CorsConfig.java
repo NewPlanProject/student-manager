@@ -9,7 +9,7 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * 配置允许跨域访问,这样做不安全。生产环境替换为nginx反向代理解决跨域问题的形式
  */
-//@Configuration
+@Configuration
 public class CorsConfig {
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();

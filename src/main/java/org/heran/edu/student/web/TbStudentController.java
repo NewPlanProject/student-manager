@@ -30,7 +30,7 @@ public class TbStudentController {
 
     @ApiOperation(value = "学生信息列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "tbStudentInVO", value = "故障/预警对象", required = false, paramType = "body", dataType = "TbStudentInVO")
+            @ApiImplicitParam(name = "tbStudentInVO", value = "学生对象", required = false, paramType = "body", dataType = "TbStudentInVO")
     })
     @PostMapping(value = "studentList", produces = "application/json;charset=UTF-8")
     @ResponseBody
