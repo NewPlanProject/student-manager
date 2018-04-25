@@ -86,7 +86,7 @@ public class GeneratorContext {
 	}
 
 	public static String getVmPath() {
-		return "org/citic/iiot/persist/gener/template/vm/";
+		return "org/heran/edu/student/util/gener/template/vm/";
 	}
 
 	public static String getDefaultValue(String javaType) {

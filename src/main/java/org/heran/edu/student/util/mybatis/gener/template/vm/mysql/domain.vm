@@ -1,4 +1,4 @@
-#parse("org/citic/iiot/persist/gener/template/vm/macro/common.vm")
+#parse("org/heran/edu/student/util/gener/template/vm/macro/common.vm")
 package ${domainPackage};
 
 import java.io.Serializable;
