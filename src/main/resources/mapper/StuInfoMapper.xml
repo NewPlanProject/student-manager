@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="StuInfoMapper">
     
-    <sql id="stuInfoColumns">stu_info.id AS stu_info_id, stu_info.name AS stu_info_name, stu_info.native_place AS stu_info_native_place, stu_info.sex AS stu_info_sex, stu_info.nation AS stu_info_nation, stu_info.mobile AS stu_info_mobile, stu_info.mailbox AS stu_info_mailbox, stu_info.id_card AS stu_info_id_card, stu_info.certificate_no AS stu_info_certificate_no, stu_info.admissiont_no AS stu_info_admissiont_no, stu_info.gradation AS stu_info_gradation, stu_info.now_academy AS stu_info_now_academy, stu_info.major AS stu_info_major, stu_info.registion_item AS stu_info_registion_item, stu_info.old_academy AS stu_info_old_academy, stu_info.exam_arae AS stu_info_exam_arae, stu_info.exam_place AS stu_info_exam_place, stu_info.test_period AS stu_info_test_period,stu_info.batch AS stu_info_batch, stu_info.degree_or_no AS stu_info_degree_or_no, stu_info.enlists_time AS stu_info_enlists_time, stu_info.highest_edu AS stu_info_highest_edu, stu_info.consultant AS stu_info_consultant, stu_info.counsellors AS stu_info_counsellors, stu_info.contract_no AS stu_info_contract_no, stu_info.receipt_no AS stu_info_receipt_no, stu_info.training_fee AS stu_info_training_fee, stu_info.yet_fee AS stu_info_yet_fee, stu_info.no_fee AS stu_info_no_fee, stu_info.reduced_price AS stu_info_reduced_price, stu_info.status AS stu_info_status, stu_info.channel_realize AS stu_info_channel_realize, stu_info.payment AS stu_info_payment, stu_info.data_gather AS stu_info_data_gather, stu_info.remark AS stu_info_remark, stu_info.createtime AS stu_info_createtime, stu_info.create_user AS stu_info_create_user, stu_info.updatetime AS stu_info_updatetime, stu_info.update_user AS stu_info_update_user</sql>
+    <sql id="stuInfoColumns">stu_info.id AS stu_info_id, stu_info.name AS stu_info_name, stu_info.native_place AS stu_info_native_place, stu_info.sex AS stu_info_sex, stu_info.nation AS stu_info_nation, stu_info.mobile AS stu_info_mobile, stu_info.mailbox AS stu_info_mailbox, stu_info.id_card AS stu_info_id_card, stu_info.certificate_no AS stu_info_certificate_no, stu_info.admissiont_no AS stu_info_admissiont_no, stu_info.gradation AS stu_info_gradation, stu_info.now_academy AS stu_info_now_academy, stu_info.major AS stu_info_major, stu_info.registion_item AS stu_info_registion_item, stu_info.old_academy AS stu_info_old_academy, stu_info.exam_arae AS stu_info_exam_arae, stu_info.exam_place AS stu_info_exam_place, stu_info.test_period AS stu_info_test_period,stu_info.batch AS stu_info_batch, stu_info.degree_or_no AS stu_info_degree_or_no, stu_info.enlists_time AS stu_info_enlists_time, stu_info.highest_edu AS stu_info_highest_edu, stu_info.consultant AS stu_info_consultant, stu_info.counsellors AS stu_info_counsellors, stu_info.contract_no AS stu_info_contract_no, stu_info.receipt_no AS stu_info_receipt_no, stu_info.training_fee AS stu_info_training_fee, stu_info.yet_fee AS stu_info_yet_fee, stu_info.no_fee AS stu_info_no_fee, stu_info.reduced_price AS stu_info_reduced_price, stu_info.status AS stu_info_status, stu_info.stu_status AS stu_info_stu_status, stu_info.channel_realize AS stu_info_channel_realize, stu_info.payment AS stu_info_payment, stu_info.data_gather AS stu_info_data_gather, stu_info.remark AS stu_info_remark, stu_info.createtime AS stu_info_createtime, stu_info.create_user AS stu_info_create_user, stu_info.updatetime AS stu_info_updatetime, stu_info.update_user AS stu_info_update_user</sql>
     
     <sql id="stuInfoWhere">
         <trim prefix="WHERE" prefixOverrides="AND">
@@ -37,6 +37,7 @@
             <if test="noFee!=null">AND stu_info.no_fee = #{noFee}</if>
             <if test="reducedPrice!=null">AND stu_info.reduced_price = #{reducedPrice}</if>
             <if test="status!=null">AND stu_info.status = #{status}</if>
+            <if test="stuStatus!=null">AND stu_info.stu_status = #{stuStatus}</if>
             <if test="channelRealize!=null">AND stu_info.channel_realize = #{channelRealize}</if>
             <if test="payment!=null">AND stu_info.payment = #{payment}</if>
             <if test="dataGather!=null">AND stu_info.data_gather = #{dataGather}</if>
@@ -91,6 +92,7 @@
         <result column="stu_info_no_fee" property="noFee" />
         <result column="stu_info_reduced_price" property="reducedPrice" />
         <result column="stu_info_status" property="status" />
+        <result column="stu_info_stu_status" property="stuStatus" />
         <result column="stu_info_channel_realize" property="channelRealize" />
         <result column="stu_info_payment" property="payment" />
         <result column="stu_info_data_gather" property="dataGather" />
@@ -166,6 +168,7 @@
             <if test="noFee!=null">,no_fee</if>
             <if test="reducedPrice!=null">,reduced_price</if>
             <if test="status!=null">,status</if>
+            <if test="stuStatus!=null">,stu_status</if>
             <if test="channelRealize!=null">,channel_realize</if>
             <if test="payment!=null">,payment</if>
             <if test="dataGather!=null">,data_gather</if>
@@ -208,6 +211,7 @@
             <if test="noFee!=null">,#{noFee}</if>
             <if test="reducedPrice!=null">,#{reducedPrice}</if>
             <if test="status!=null">,#{status}</if>
+            <if test="stuStatus!=null">,#{stuStatus}</if>
             <if test="channelRealize!=null">,#{channelRealize}</if>
             <if test="payment!=null">,#{payment}</if>
             <if test="dataGather!=null">,#{dataGather}</if>
@@ -254,6 +258,7 @@
             <if test="noFee!=null">,no_fee = #{noFee}</if>
             <if test="reducedPrice!=null">,reduced_price = #{reducedPrice}</if>
             <if test="status!=null">,status = #{status}</if>
+            <if test="stuStatus!=null">,stu_status = #{stuStatus}</if>
             <if test="channelRealize!=null">,channel_realize = #{channelRealize}</if>
             <if test="payment!=null">,payment = #{payment}</if>
             <if test="dataGather!=null">,data_gather = #{dataGather}</if>

@@ -14,8 +14,10 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-public class StudentRegisterInVO {
+public class StudentUpdateInVO {
 
+    @ApiModelProperty(value = "id",example = "123")
+    private String id;
     @ApiModelProperty(value = "姓名",example = "甲甲")
     private String name;
     @ApiModelProperty(value = "籍贯",example = "河北")

@@ -45,6 +45,7 @@ public class StuInfo extends PageEntity implements Serializable {
     private String noFee;   //未交费用
     private String reducedPrice;    //优惠价格
     private String status;  //审核状态[1:通过;2:不通过]
+    private String stuStatus;  //学生状态[1:转校;2:延期]
     private String channelRealize;  //渠道了解
     private String payment; //支付方式
     private String dataGather;  //资料收集

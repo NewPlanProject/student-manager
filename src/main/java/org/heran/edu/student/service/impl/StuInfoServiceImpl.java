@@ -10,6 +10,7 @@ import org.heran.edu.student.util.data.ResultCode;
 import org.heran.edu.student.util.dispose.UUIDUtil;
 import org.heran.edu.student.vo.StuInfoInVO;
 import org.heran.edu.student.vo.StudentRegisterInVO;
+import org.heran.edu.student.vo.StudentUpdateInVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
- * User: Mr.zheng
- * Date: 2017/8/16
+ * User: Mrs.Jia
+ * Date: 2018/4/26
  * Time: 11:40
  */
 @Service
@@ -41,6 +42,7 @@ class StuInfoServiceImpl implements StuInfoService {
             String uuid = UUIDUtil.creatUUID();
             stuInfo.setId(uuid);
             stuInfo.setCreatetime(new Date());
+            stuInfo.setStatus("2");
             //保存操作
             this.stuInfoDao.save(stuInfo);
             //给返回值赋值
@@ -76,5 +78,48 @@ class StuInfoServiceImpl implements StuInfoService {
         res.setMsg("查询成功");
         log.info("Get getStudentList size={}",stuInfos!=null?stuInfos.size() : "");
         return res;
+    }
+
+    @Override
+    public Result<Boolean> updateStu(StudentUpdateInVO studentUpdateInVO) {
+        log.info("Enter updateStu studentUpdateInVO={}", studentUpdateInVO);
+        Result<Boolean> resBean = new Result<Boolean>(ResultCode.ERROR_SERVICE, "修改失败", false);
+        StuInfo stuInfo = new StuInfo();
+        BeanUtils.copyProperties(studentUpdateInVO, stuInfo);
+        try {
+            stuInfo.setUpdatetime(new Date());
+            //保存操作
+            this.stuInfoDao.update(stuInfo);
+            //给返回值赋值
+            resBean.setContent(true);
+            resBean.setMsg("修改成功");
+            resBean.setCode(ResultCode.SUCCESS);
+        } catch (Exception e) {
+            log.error("Find Exception", e);
+        }
+        return resBean;
+    }
+
+    @Override
+    public Result<Boolean> updateBatchStatus(String ids) {
+        log.info("Enter updateBatchStatus ids={}", ids);
+        Result<Boolean> resBean = new Result<Boolean>(ResultCode.ERROR_SERVICE, "修改失败", false);
+        String[] split = ids.split(",");
+        try {
+            for(String id:split){
+                StuInfo stuInfo = new StuInfo();
+                stuInfo.setId(id);
+                stuInfo.setStatus("1");
+                stuInfo.setUpdatetime(new Date());
+                this.stuInfoDao.update(stuInfo);
+            }
+        } catch (Exception e) {
+            log.error("Find Exception", e);
+        }
+        //给返回值赋值
+        resBean.setContent(true);
+        resBean.setMsg("修改成功");
+        resBean.setCode(ResultCode.SUCCESS);
+        return resBean;
     }
 }
