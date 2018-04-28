@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbAdminRoleFuncMapper">
+    
+    <sql id="tbAdminRoleFuncColumns">tb_admin_role_func.role_fun_id AS tb_admin_role_func_role_fun_id, tb_admin_role_func.role_id AS tb_admin_role_func_role_id, tb_admin_role_func.fun_module_code AS tb_admin_role_func_fun_module_code, tb_admin_role_func.remark AS tb_admin_role_func_remark, tb_admin_role_func.create_user AS tb_admin_role_func_create_user, tb_admin_role_func.createtime AS tb_admin_role_func_createtime</sql>
+    
+    <sql id="tbAdminRoleFuncWhere">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="roleFunId!=0">AND tb_admin_role_func.role_fun_id = #{roleFunId}</if>
+            <if test="roleId!=0">AND tb_admin_role_func.role_id = #{roleId}</if>
+            <if test="funModuleCode!=null">AND tb_admin_role_func.fun_module_code = #{funModuleCode}</if>
+            <if test="remark!=null">AND tb_admin_role_func.remark = #{remark}</if>
+            <if test="createUser!=0">AND tb_admin_role_func.create_user = #{createUser}</if>
+            <if test="startDate!=null">AND tb_admin_role_func.createtime &gt;= #{startDate}</if>
+            <if test="endDate!=null">AND tb_admin_role_func.createtime &lt;=#{endDate}</if>
+        </trim>
+    </sql>
+
+    <sql id="order">
+        <if test="orderString!=null and sequence!=null">ORDER BY ${orderString} ${sequence}</if>
+    </sql>
+
+    <sql id="tbAdminRoleFuncOrder">
+        <if test="orderString!=null">ORDER BY ${orderString}</if>
+    </sql>
+    
+    <sql id="tbAdminRoleFuncLimit">LIMIT #{startLine},#{limitLine}</sql>
+    
+    <resultMap type="org.heran.edu.student.domain.TbAdminRoleFunc" id="tbAdminRoleFuncResultMap">
+        <id column="tb_admin_role_func_role_fun_id" property="roleFunId" />
+        <result column="tb_admin_role_func_role_id" property="roleId" />
+        <result column="tb_admin_role_func_fun_module_code" property="funModuleCode" />
+        <result column="tb_admin_role_func_remark" property="remark" />
+        <result column="tb_admin_role_func_create_user" property="createUser" />
+        <result column="tb_admin_role_func_createtime" property="createtime" />
+    </resultMap>
+    
+    <select id="findDao" resultMap="tbAdminRoleFuncResultMap">
+        SELECT
+        <include refid="tbAdminRoleFuncColumns" />
+        FROM tb_admin_role_func
+        <include refid="tbAdminRoleFuncWhere" />
+        <include refid="tbAdminRoleFuncOrder" />
+    </select>
+    
+    <select id="countDao" resultType="int">
+        SELECT COUNT(*) FROM tb_admin_role_func
+        <include refid="tbAdminRoleFuncWhere" />
+    </select>
+    
+    <select id="pageDao" resultMap="tbAdminRoleFuncResultMap">
+        SELECT
+        <include refid="tbAdminRoleFuncColumns" />
+        FROM tb_admin_role_func
+        <include refid="tbAdminRoleFuncWhere" />
+        <include refid="tbAdminRoleFuncOrder" />
+        <include refid="tbAdminRoleFuncLimit" />
+    </select>
+    
+    <select id="limitDao" resultMap="tbAdminRoleFuncResultMap">
+        SELECT
+        <include refid="tbAdminRoleFuncColumns" />
+        FROM tb_admin_role_func
+        <include refid="tbAdminRoleFuncWhere" />
+        <include refid="tbAdminRoleFuncOrder" />
+        <include refid="tbAdminRoleFuncLimit" />
+    </select>
+    
+    <insert id="saveDao" useGeneratedKeys="true" keyProperty="roleFunId">
+        INSERT INTO tb_admin_role_func
+        <trim prefix="(" prefixOverrides=",">
+            <if test="roleFunId!=0">,role_fun_id</if>
+            <if test="roleId!=0">,role_id</if>
+            <if test="funModuleCode!=null">,fun_module_code</if>
+            <if test="remark!=null">,remark</if>
+            <if test="createUser!=0">,create_user</if>
+            <if test="createtime!=null">,createtime</if>
+        </trim>
+        ) VALUES
+        <trim prefix="(" prefixOverrides=",">
+            <if test="roleFunId!=0">,#{roleFunId}</if>
+            <if test="roleId!=0">,#{roleId}</if>
+            <if test="funModuleCode!=null">,#{funModuleCode}</if>
+            <if test="remark!=null">,#{remark}</if>
+            <if test="createUser!=0">,#{createUser}</if>
+            <if test="createtime!=null">,#{createtime}</if>
+        </trim>
+        )
+    </insert>
+    
+    <update id="updateDao">
+        UPDATE tb_admin_role_func
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="roleFunId!=0">,role_fun_id = #{roleFunId}</if>
+            <if test="roleId!=0">,role_id = #{roleId}</if>
+            <if test="funModuleCode!=null">,fun_module_code = #{funModuleCode}</if>
+            <if test="remark!=null">,remark = #{remark}</if>
+            <if test="createUser!=0">,create_user = #{createUser}</if>
+            <if test="createtime!=null">,createtime = #{createtime}</if>
+        </trim>
+        <trim prefix="WHERE" prefixOverrides="AND">AND role_fun_id = #{roleFunId}</trim>
+    </update>
+    
+    <delete id="deleteDao">
+        DELETE FROM tb_admin_role_func
+        <trim prefix="WHERE" prefixOverrides="AND">AND role_fun_id = #{roleFunId}</trim>
+    </delete>
+    
+</mapper>

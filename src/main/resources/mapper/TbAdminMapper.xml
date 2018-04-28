@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbAdminMapper">
+    
+    <sql id="tbAdminColumns">tb_admin.admin_id AS tb_admin_admin_id, tb_admin.role_id AS tb_admin_role_id, tb_admin.name AS tb_admin_name, tb_admin.real_name AS tb_admin_real_name, tb_admin.login_pwd AS tb_admin_login_pwd, tb_admin.admin_phone AS tb_admin_admin_phone, tb_admin.admin_email AS tb_admin_admin_email, tb_admin.last_login_ip AS tb_admin_last_login_ip, tb_admin.last_login_time AS tb_admin_last_login_time, tb_admin.remark AS tb_admin_remark, tb_admin.status AS tb_admin_status, tb_admin.create_user AS tb_admin_create_user, tb_admin.createtime AS tb_admin_createtime, tb_admin.update_user AS tb_admin_update_user, tb_admin.updatetime AS tb_admin_updatetime</sql>
+    
+    <sql id="tbAdminWhere">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="adminId!=0">AND tb_admin.admin_id = #{adminId}</if>
+            <if test="roleId!=0">AND tb_admin.role_id = #{roleId}</if>
+            <if test="name!=null">AND tb_admin.name = #{name}</if>
+            <if test="realName!=null">AND tb_admin.real_name = #{realName}</if>
+            <if test="loginPwd!=null">AND tb_admin.login_pwd = #{loginPwd}</if>
+            <if test="adminPhone!=null">AND tb_admin.admin_phone = #{adminPhone}</if>
+            <if test="adminEmail!=null">AND tb_admin.admin_email = #{adminEmail}</if>
+            <if test="lastLoginIp!=null">AND tb_admin.last_login_ip = #{lastLoginIp}</if>
+            <if test="lastLoginTime!=null">AND tb_admin.last_login_time = #{lastLoginTime}</if>
+            <if test="remark!=null">AND tb_admin.remark = #{remark}</if>
+            <if test="status!=null">AND tb_admin.status = #{status}</if>
+            <if test="createUser!=0">AND tb_admin.create_user = #{createUser}</if>
+            <if test="startDate!=null">AND tb_admin.createtime &gt;= #{startDate}</if>
+            <if test="endDate!=null">AND tb_admin.createtime &lt;=#{endDate}</if>
+            <if test="updateUser!=0">AND tb_admin.update_user = #{updateUser}</if>
+            <if test="updatetime!=null">AND tb_admin.updatetime = #{updatetime}</if>
+        </trim>
+    </sql>
+
+    <sql id="order">
+        <if test="orderString!=null and sequence!=null">ORDER BY ${orderString} ${sequence}</if>
+    </sql>
+
+    <sql id="tbAdminOrder">
+        <if test="orderString!=null">ORDER BY ${orderString}</if>
+    </sql>
+    
+    <sql id="tbAdminLimit">LIMIT #{startLine},#{limitLine}</sql>
+    
+    <resultMap type="org.heran.edu.student.domain.TbAdmin" id="tbAdminResultMap">
+        <id column="tb_admin_admin_id" property="adminId" />
+        <result column="tb_admin_role_id" property="roleId" />
+        <result column="tb_admin_name" property="name" />
+        <result column="tb_admin_real_name" property="realName" />
+        <result column="tb_admin_login_pwd" property="loginPwd" />
+        <result column="tb_admin_admin_phone" property="adminPhone" />
+        <result column="tb_admin_admin_email" property="adminEmail" />
+        <result column="tb_admin_last_login_ip" property="lastLoginIp" />
+        <result column="tb_admin_last_login_time" property="lastLoginTime" />
+        <result column="tb_admin_remark" property="remark" />
+        <result column="tb_admin_status" property="status" />
+        <result column="tb_admin_create_user" property="createUser" />
+        <result column="tb_admin_createtime" property="createtime" />
+        <result column="tb_admin_update_user" property="updateUser" />
+        <result column="tb_admin_updatetime" property="updatetime" />
+    </resultMap>
+    
+    <select id="findDao" resultMap="tbAdminResultMap">
+        SELECT
+        <include refid="tbAdminColumns" />
+        FROM tb_admin
+        <include refid="tbAdminWhere" />
+        <include refid="tbAdminOrder" />
+    </select>
+    
+    <select id="countDao" resultType="int">
+        SELECT COUNT(*) FROM tb_admin
+        <include refid="tbAdminWhere" />
+    </select>
+    
+    <select id="pageDao" resultMap="tbAdminResultMap">
+        SELECT
+        <include refid="tbAdminColumns" />
+        FROM tb_admin
+        <include refid="tbAdminWhere" />
+        <include refid="tbAdminOrder" />
+        <include refid="tbAdminLimit" />
+    </select>
+    
+    <select id="limitDao" resultMap="tbAdminResultMap">
+        SELECT
+        <include refid="tbAdminColumns" />
+        FROM tb_admin
+        <include refid="tbAdminWhere" />
+        <include refid="tbAdminOrder" />
+        <include refid="tbAdminLimit" />
+    </select>
+    
+    <insert id="saveDao" useGeneratedKeys="true" keyProperty="adminId">
+        INSERT INTO tb_admin
+        <trim prefix="(" prefixOverrides=",">
+            <if test="adminId!=0">,admin_id</if>
+            <if test="roleId!=0">,role_id</if>
+            <if test="name!=null">,name</if>
+            <if test="realName!=null">,real_name</if>
+            <if test="loginPwd!=null">,login_pwd</if>
+            <if test="adminPhone!=null">,admin_phone</if>
+            <if test="adminEmail!=null">,admin_email</if>
+            <if test="lastLoginIp!=null">,last_login_ip</if>
+            <if test="lastLoginTime!=null">,last_login_time</if>
+            <if test="remark!=null">,remark</if>
+            <if test="status!=null">,status</if>
+            <if test="createUser!=0">,create_user</if>
+            <if test="createtime!=null">,createtime</if>
+            <if test="updateUser!=0">,update_user</if>
+            <if test="updatetime!=null">,updatetime</if>
+        </trim>
+        ) VALUES
+        <trim prefix="(" prefixOverrides=",">
+            <if test="adminId!=0">,#{adminId}</if>
+            <if test="roleId!=0">,#{roleId}</if>
+            <if test="name!=null">,#{name}</if>
+            <if test="realName!=null">,#{realName}</if>
+            <if test="loginPwd!=null">,#{loginPwd}</if>
+            <if test="adminPhone!=null">,#{adminPhone}</if>
+            <if test="adminEmail!=null">,#{adminEmail}</if>
+            <if test="lastLoginIp!=null">,#{lastLoginIp}</if>
+            <if test="lastLoginTime!=null">,#{lastLoginTime}</if>
+            <if test="remark!=null">,#{remark}</if>
+            <if test="status!=null">,#{status}</if>
+            <if test="createUser!=0">,#{createUser}</if>
+            <if test="createtime!=null">,#{createtime}</if>
+            <if test="updateUser!=0">,#{updateUser}</if>
+            <if test="updatetime!=null">,#{updatetime}</if>
+        </trim>
+        )
+    </insert>
+    
+    <update id="updateDao">
+        UPDATE tb_admin
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="adminId!=0">,admin_id = #{adminId}</if>
+            <if test="roleId!=0">,role_id = #{roleId}</if>
+            <if test="name!=null">,name = #{name}</if>
+            <if test="realName!=null">,real_name = #{realName}</if>
+            <if test="loginPwd!=null">,login_pwd = #{loginPwd}</if>
+            <if test="adminPhone!=null">,admin_phone = #{adminPhone}</if>
+            <if test="adminEmail!=null">,admin_email = #{adminEmail}</if>
+            <if test="lastLoginIp!=null">,last_login_ip = #{lastLoginIp}</if>
+            <if test="lastLoginTime!=null">,last_login_time = #{lastLoginTime}</if>
+            <if test="remark!=null">,remark = #{remark}</if>
+            <if test="status!=null">,status = #{status}</if>
+            <if test="createUser!=0">,create_user = #{createUser}</if>
+            <if test="createtime!=null">,createtime = #{createtime}</if>
+            <if test="updateUser!=0">,update_user = #{updateUser}</if>
+            <if test="updatetime!=null">,updatetime = #{updatetime}</if>
+        </trim>
+        <trim prefix="WHERE" prefixOverrides="AND">AND admin_id = #{adminId}</trim>
+    </update>
+    
+    <delete id="deleteDao">
+        DELETE FROM tb_admin
+        <trim prefix="WHERE" prefixOverrides="AND">AND admin_id = #{adminId}</trim>
+    </delete>
+    
+</mapper>

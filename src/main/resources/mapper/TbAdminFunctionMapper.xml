@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbAdminFunctionMapper">
+    
+    <sql id="tbAdminFunctionColumns">tb_admin_function.fun_module_id AS tb_admin_function_fun_module_id, tb_admin_function.sort_code AS tb_admin_function_sort_code, tb_admin_function.name AS tb_admin_function_name, tb_admin_function.func_url AS tb_admin_function_func_url, tb_admin_function.func_icon AS tb_admin_function_func_icon, tb_admin_function.parent_id AS tb_admin_function_parent_id, tb_admin_function.code AS tb_admin_function_code, tb_admin_function.is_disabled AS tb_admin_function_is_disabled, tb_admin_function.create_user AS tb_admin_function_create_user, tb_admin_function.createtime AS tb_admin_function_createtime, tb_admin_function.sort AS tb_admin_function_sort, tb_admin_function.is_del AS tb_admin_function_is_del</sql>
+    
+    <sql id="tbAdminFunctionWhere">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="funModuleId!=0">AND tb_admin_function.fun_module_id = #{funModuleId}</if>
+            <if test="sortCode!=null">AND tb_admin_function.sort_code = #{sortCode}</if>
+            <if test="name!=null">AND tb_admin_function.name = #{name}</if>
+            <if test="funcUrl!=null">AND tb_admin_function.func_url = #{funcUrl}</if>
+            <if test="funcIcon!=null">AND tb_admin_function.func_icon = #{funcIcon}</if>
+            <if test="parentId!=0">AND tb_admin_function.parent_id = #{parentId}</if>
+            <if test="code!=null">AND tb_admin_function.code = #{code}</if>
+            <if test="isDisabled!=null">AND tb_admin_function.is_disabled = #{isDisabled}</if>
+            <if test="createUser!=0">AND tb_admin_function.create_user = #{createUser}</if>
+            <if test="startDate!=null">AND tb_admin_function.createtime &gt;= #{startDate}</if>
+            <if test="endDate!=null">AND tb_admin_function.createtime &lt;=#{endDate}</if>
+            <if test="sort!=0">AND tb_admin_function.sort = #{sort}</if>
+            <if test="isDel!=null">AND tb_admin_function.is_del = #{isDel}</if>
+        </trim>
+    </sql>
+
+    <sql id="order">
+        <if test="orderString!=null and sequence!=null">ORDER BY ${orderString} ${sequence}</if>
+    </sql>
+
+    <sql id="tbAdminFunctionOrder">
+        <if test="orderString!=null">ORDER BY ${orderString}</if>
+    </sql>
+    
+    <sql id="tbAdminFunctionLimit">LIMIT #{startLine},#{limitLine}</sql>
+    
+    <resultMap type="org.heran.edu.student.domain.TbAdminFunction" id="tbAdminFunctionResultMap">
+        <id column="tb_admin_function_fun_module_id" property="funModuleId" />
+        <result column="tb_admin_function_sort_code" property="sortCode" />
+        <result column="tb_admin_function_name" property="name" />
+        <result column="tb_admin_function_func_url" property="funcUrl" />
+        <result column="tb_admin_function_func_icon" property="funcIcon" />
+        <result column="tb_admin_function_parent_id" property="parentId" />
+        <result column="tb_admin_function_code" property="code" />
+        <result column="tb_admin_function_is_disabled" property="isDisabled" />
+        <result column="tb_admin_function_create_user" property="createUser" />
+        <result column="tb_admin_function_createtime" property="createtime" />
+        <result column="tb_admin_function_sort" property="sort" />
+        <result column="tb_admin_function_is_del" property="isDel" />
+    </resultMap>
+    
+    <select id="findDao" resultMap="tbAdminFunctionResultMap">
+        SELECT
+        <include refid="tbAdminFunctionColumns" />
+        FROM tb_admin_function
+        <include refid="tbAdminFunctionWhere" />
+        <include refid="tbAdminFunctionOrder" />
+    </select>
+    
+    <select id="countDao" resultType="int">
+        SELECT COUNT(*) FROM tb_admin_function
+        <include refid="tbAdminFunctionWhere" />
+    </select>
+    
+    <select id="pageDao" resultMap="tbAdminFunctionResultMap">
+        SELECT
+        <include refid="tbAdminFunctionColumns" />
+        FROM tb_admin_function
+        <include refid="tbAdminFunctionWhere" />
+        <include refid="tbAdminFunctionOrder" />
+        <include refid="tbAdminFunctionLimit" />
+    </select>
+    
+    <select id="limitDao" resultMap="tbAdminFunctionResultMap">
+        SELECT
+        <include refid="tbAdminFunctionColumns" />
+        FROM tb_admin_function
+        <include refid="tbAdminFunctionWhere" />
+        <include refid="tbAdminFunctionOrder" />
+        <include refid="tbAdminFunctionLimit" />
+    </select>
+    
+    <insert id="saveDao" useGeneratedKeys="true" keyProperty="funModuleId">
+        INSERT INTO tb_admin_function
+        <trim prefix="(" prefixOverrides=",">
+            <if test="funModuleId!=0">,fun_module_id</if>
+            <if test="sortCode!=null">,sort_code</if>
+            <if test="name!=null">,name</if>
+            <if test="funcUrl!=null">,func_url</if>
+            <if test="funcIcon!=null">,func_icon</if>
+            <if test="parentId!=0">,parent_id</if>
+            <if test="code!=null">,code</if>
+            <if test="isDisabled!=null">,is_disabled</if>
+            <if test="createUser!=0">,create_user</if>
+            <if test="createtime!=null">,createtime</if>
+            <if test="sort!=0">,sort</if>
+            <if test="isDel!=null">,is_del</if>
+        </trim>
+        ) VALUES
+        <trim prefix="(" prefixOverrides=",">
+            <if test="funModuleId!=0">,#{funModuleId}</if>
+            <if test="sortCode!=null">,#{sortCode}</if>
+            <if test="name!=null">,#{name}</if>
+            <if test="funcUrl!=null">,#{funcUrl}</if>
+            <if test="funcIcon!=null">,#{funcIcon}</if>
+            <if test="parentId!=0">,#{parentId}</if>
+            <if test="code!=null">,#{code}</if>
+            <if test="isDisabled!=null">,#{isDisabled}</if>
+            <if test="createUser!=0">,#{createUser}</if>
+            <if test="createtime!=null">,#{createtime}</if>
+            <if test="sort!=0">,#{sort}</if>
+            <if test="isDel!=null">,#{isDel}</if>
+        </trim>
+        )
+    </insert>
+    
+    <update id="updateDao">
+        UPDATE tb_admin_function
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="funModuleId!=0">,fun_module_id = #{funModuleId}</if>
+            <if test="sortCode!=null">,sort_code = #{sortCode}</if>
+            <if test="name!=null">,name = #{name}</if>
+            <if test="funcUrl!=null">,func_url = #{funcUrl}</if>
+            <if test="funcIcon!=null">,func_icon = #{funcIcon}</if>
+            <if test="parentId!=0">,parent_id = #{parentId}</if>
+            <if test="code!=null">,code = #{code}</if>
+            <if test="isDisabled!=null">,is_disabled = #{isDisabled}</if>
+            <if test="createUser!=0">,create_user = #{createUser}</if>
+            <if test="createtime!=null">,createtime = #{createtime}</if>
+            <if test="sort!=0">,sort = #{sort}</if>
+            <if test="isDel!=null">,is_del = #{isDel}</if>
+        </trim>
+        <trim prefix="WHERE" prefixOverrides="AND">AND fun_module_id = #{funModuleId}</trim>
+    </update>
+    
+    <delete id="deleteDao">
+        DELETE FROM tb_admin_function
+        <trim prefix="WHERE" prefixOverrides="AND">AND fun_module_id = #{funModuleId}</trim>
+    </delete>
+    
+</mapper>
