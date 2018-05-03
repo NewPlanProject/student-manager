@@ -43,6 +43,7 @@ class StuInfoServiceImpl implements StuInfoService {
             stuInfo.setId(uuid);
             stuInfo.setCreatetime(new Date());
             stuInfo.setStatus("2");
+            stuInfo.setStuStatus("1");
             //保存操作
             this.stuInfoDao.save(stuInfo);
             //给返回值赋值
