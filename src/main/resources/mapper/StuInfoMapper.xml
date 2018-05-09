@@ -42,8 +42,8 @@
             <if test="payment!=null">AND stu_info.payment = #{payment}</if>
             <if test="dataGather!=null">AND stu_info.data_gather = #{dataGather}</if>
             <if test="remark!=null">AND stu_info.remark = #{remark}</if>
-            <if test="startDate!=null">AND message.createtime &gt;= #{startDate}</if>
-            <if test="endDate!=null">AND message.createtime &lt;=#{endDate}</if>
+            <if test="startDate!=null">AND stu_info.createtime &gt;= #{startDate}</if>
+            <if test="endDate!=null">AND stu_info.createtime &lt;=#{endDate}</if>
             <if test="createUser!=null">AND stu_info.create_user = #{createUser}</if>
             <if test="updatetime!=null">AND stu_info.updatetime = #{updatetime}</if>
             <if test="updateUser!=null">AND stu_info.update_user = #{updateUser}</if>

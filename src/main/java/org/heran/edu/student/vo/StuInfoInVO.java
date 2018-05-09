@@ -44,7 +44,4 @@ public class StuInfoInVO {
     private String examArae;
     @ApiModelProperty(value = "考期",example = "考期")
     private String batch;
-    @ApiModelProperty(value = "注册时间",example = "2018-04-25 06:08:28")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date createtime;
 }
