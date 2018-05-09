@@ -111,6 +111,7 @@ class StuInfoServiceImpl implements StuInfoService {
                 StuInfo stuInfo = new StuInfo();
                 stuInfo.setId(id);
                 stuInfo.setStatus("1");
+                stuInfo.setStuStatus("2");
                 stuInfo.setUpdatetime(new Date());
                 this.stuInfoDao.update(stuInfo);
             }
