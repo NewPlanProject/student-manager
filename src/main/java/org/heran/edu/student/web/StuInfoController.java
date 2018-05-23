@@ -1,5 +1,6 @@
 package org.heran.edu.student.web;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -8,14 +9,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
 import org.heran.edu.student.util.data.ResultCode;
+import org.heran.edu.student.util.dispose.SpringContextUtil;
 import org.heran.edu.student.vo.StuInfoInVO;
 import org.heran.edu.student.vo.StudentRegisterInVO;
 import org.heran.edu.student.vo.StudentUpdateInVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -25,6 +36,7 @@ public class StuInfoController {
 
     @Autowired
     private StuInfoService stuInfoService;
+
 
     @ApiOperation(value = "学生注册功能")
     @ApiImplicitParams({
@@ -109,4 +121,51 @@ public class StuInfoController {
         log.info("updateBatchStatus={}",resBean);
         return JSON.toJSONString(resBean);
     }
+
+    @PostMapping(value = "upLoadAccessory", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String upLoadAccessory(@RequestParam("file")MultipartFile file,HttpServletRequest request){
+        Result<Map<String, Object>> res = new Result<Map<String, Object>>(ResultCode.ERROR_DATA, "上传失败", null);
+
+        Map<String,Object> map = new HashMap<>();
+        //保存时的文件名
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        Calendar calendar = Calendar.getInstance();
+        String dateName = df.format(calendar.getTime())+file.getOriginalFilename();
+
+        System.out.println(dateName);
+        //保存文件的绝对路径
+        WebApplicationContext webApplicationContext = (WebApplicationContext) SpringContextUtil.applicationContext;
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        String realPath = servletContext.getRealPath("/");
+        String filePath = realPath + "resources"+ File.separator +"static" + File.separator+dateName;
+        System.out.println("绝对路径:"+filePath);
+
+        File newFile = new File(filePath);
+
+        //MultipartFile的方法直接写文件
+        try {
+            //上传文件
+            file.transferTo(newFile);
+
+            //数据库存储的相对路径
+            String projectPath = servletContext.getContextPath();
+            String contextpath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+projectPath;
+            String url = contextpath + "/resource/"+dateName;
+            System.out.println("相对路径:"+url);
+            //文件名与文件URL存入数据库表
+
+
+
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        res.setCode(ResultCode.SUCCESS);
+        res.setContent(null);
+        res.setMsg("上传成功");
+        return JSONUtils.toJSONString(res);
+    }
+
 }

@@ -40,6 +40,8 @@ public class StudentRegisterInVO {
     private String registionItem;
     @ApiModelProperty(value = "考期",example = "考期")
     private String testPeriod;
+    @ApiModelProperty(value = "考区",example = "考区")
+    private String examArae;
     @ApiModelProperty(value = "学位与否[true:是;false:否]",example = "学位与否[true:是;false:否]")
     private String degreeOrNo;
     @ApiModelProperty(value = "最高学历",example = "最高学历")

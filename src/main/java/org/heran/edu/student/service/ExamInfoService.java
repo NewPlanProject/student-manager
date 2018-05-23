@@ -14,32 +14,25 @@ import java.util.Map;
  * Time: 11:40
  */
 @Transactional
-public interface StuInfoService {
-    /**
-     *
-     * @param studentRegisterInVO
-     * @return
-     */
-    Result<Boolean> addStuInfo(StudentRegisterInVO studentRegisterInVO);
+public interface ExamInfoService {
 
     /**
      *
-     * @param stuInfoInVO
      * @return
      */
-    Result<Map<String,Object>> getStudentList(StuInfoInVO stuInfoInVO);
+    Result<Map<String, Object>> colleges();
 
     /**
      *
-     * @param studentUpdateInVO
+     * @param pid
      * @return
      */
-    Result<Boolean> updateStu(StudentUpdateInVO studentUpdateInVO);
+    Result<Map<String,Object>> majors(Integer pid);
 
     /**
      *
-     * @param ids
+     * @param pid
      * @return
      */
-    Result<Boolean> updateBatchStatus(String ids);
+    Result<Map<String,Object>> courses(Integer pid);
 }
