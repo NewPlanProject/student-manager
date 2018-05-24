@@ -10,6 +10,7 @@ import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
 import org.heran.edu.student.util.data.ResultCode;
 import org.heran.edu.student.util.dispose.SpringContextUtil;
+import org.heran.edu.student.util.fdfs.FastDFSClientWrapper;
 import org.heran.edu.student.vo.StuInfoInVO;
 import org.heran.edu.student.vo.StudentRegisterInVO;
 import org.heran.edu.student.vo.StudentUpdateInVO;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -37,6 +39,16 @@ public class StuInfoController {
     @Autowired
     private StuInfoService stuInfoService;
 
+    @Autowired
+    private FastDFSClientWrapper dfsClient;
+
+    // 上传文件
+    @ResponseBody
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String fileUrl= dfsClient.uploadFile(file);
+        return JSON.toJSONString(fileUrl);
+    }
 
     @ApiOperation(value = "学生注册功能")
     @ApiImplicitParams({
