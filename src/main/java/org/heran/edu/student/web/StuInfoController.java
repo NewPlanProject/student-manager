@@ -2,6 +2,7 @@ package org.heran.edu.student.web;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
+import com.aliyun.oss.OSSClient;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +16,7 @@ import org.heran.edu.student.vo.StuInfoInVO;
 import org.heran.edu.student.vo.StudentRegisterInVO;
 import org.heran.edu.student.vo.StudentUpdateInVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.WebApplicationContext;
@@ -23,11 +25,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +47,21 @@ public class StuInfoController {
     @Autowired
     private FastDFSClientWrapper dfsClient;
 
+    @Value("${oss.endpoint}")
+    private String endpoint;
+
+    @Value("${oss.accessKeyId}")
+    private String accessKeyId;
+
+    @Value("${oss.accessKeySecret}")
+    private String accessKeySecret;
+
+    @Value("${oss.bucket_name}")
+    private String bucketName;
+
+    @Value("${oss.img.prdfix}")
+    private String prdfix;
+
     // 上传文件
     @ResponseBody
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -49,6 +69,36 @@ public class StuInfoController {
         String fileUrl= dfsClient.uploadFile(file);
         return JSON.toJSONString(fileUrl);
     }
+
+    /**
+     * 上传文件到阿里云服务器
+     * @param content
+     * @param ossFilePath
+     * @param fileName
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/uploadOss", method = RequestMethod.POST)
+    public String uploadOss(String content, String ossFilePath, String fileName){
+        Result<String> result = new Result<String>(ResultCode.SUCCESS,"上传成功",null);
+        ossFilePath = ossFilePath ==null?"":ossFilePath;
+        //创建OSSClient实例
+        OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+        try {
+            ossClient.putObject(bucketName, ossFilePath+"/"+fileName, new ByteArrayInputStream(content.getBytes()));
+            Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 4);//设置URL过期时间为4年  3600 * 1000 * 24
+            URL url = ossClient.generatePresignedUrl(bucketName, ossFilePath+"/"+fileName, expiration);
+            result.setContent(url.toString().replace("\\","//"));
+        }catch(Exception e){
+            log.error("upload faild",e);
+            result.setCode(ResultCode.ERROR_SERVICE);
+            result.setMsg("上传失败");
+        }finally {
+            ossClient.shutdown();
+        }
+        return JSON.toJSONString(result);
+    }
+
 
     @ApiOperation(value = "学生注册功能")
     @ApiImplicitParams({
