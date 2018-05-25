@@ -60,7 +60,7 @@ public class StudentRegisterInVO {
     private String dataGather;
     @ApiModelProperty(value = "备注",example = "备注")
     private String remark;
-    @ApiModelProperty(value = "报考时间",example = "2018-04-25 06:08:28")
+    @ApiModelProperty(value = "报名时间",example = "2018-04-25 06:08:28")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date enlistsTime;
 }

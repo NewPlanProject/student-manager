@@ -1,8 +1,6 @@
 package org.heran.edu.student.web;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
-import com.aliyun.oss.OSSClient;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -10,30 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
 import org.heran.edu.student.util.data.ResultCode;
-import org.heran.edu.student.util.dispose.SpringContextUtil;
 import org.heran.edu.student.util.fdfs.FastDFSClientWrapper;
 import org.heran.edu.student.vo.StuInfoInVO;
 import org.heran.edu.student.vo.StudentRegisterInVO;
 import org.heran.edu.student.vo.StudentUpdateInVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -47,21 +32,6 @@ public class StuInfoController {
     @Autowired
     private FastDFSClientWrapper dfsClient;
 
-    @Value("${oss.endpoint}")
-    private String endpoint;
-
-    @Value("${oss.accessKeyId}")
-    private String accessKeyId;
-
-    @Value("${oss.accessKeySecret}")
-    private String accessKeySecret;
-
-    @Value("${oss.bucket_name}")
-    private String bucketName;
-
-    @Value("${oss.img.prdfix}")
-    private String prdfix;
-
     // 上传文件
     @ResponseBody
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -69,36 +39,6 @@ public class StuInfoController {
         String fileUrl= dfsClient.uploadFile(file);
         return JSON.toJSONString(fileUrl);
     }
-
-    /**
-     * 上传文件到阿里云服务器
-     * @param content
-     * @param ossFilePath
-     * @param fileName
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "/uploadOss", method = RequestMethod.POST)
-    public String uploadOss(String content, String ossFilePath, String fileName){
-        Result<String> result = new Result<String>(ResultCode.SUCCESS,"上传成功",null);
-        ossFilePath = ossFilePath ==null?"":ossFilePath;
-        //创建OSSClient实例
-        OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-        try {
-            ossClient.putObject(bucketName, ossFilePath+"/"+fileName, new ByteArrayInputStream(content.getBytes()));
-            Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 4);//设置URL过期时间为4年  3600 * 1000 * 24
-            URL url = ossClient.generatePresignedUrl(bucketName, ossFilePath+"/"+fileName, expiration);
-            result.setContent(url.toString().replace("\\","//"));
-        }catch(Exception e){
-            log.error("upload faild",e);
-            result.setCode(ResultCode.ERROR_SERVICE);
-            result.setMsg("上传失败");
-        }finally {
-            ossClient.shutdown();
-        }
-        return JSON.toJSONString(result);
-    }
-
 
     @ApiOperation(value = "学生注册功能")
     @ApiImplicitParams({
@@ -109,7 +49,6 @@ public class StuInfoController {
     public String stuRegister(@RequestBody StudentRegisterInVO studentRegisterInVO){
         log.info("Enter stuRegister studentRegisterInVO={}", studentRegisterInVO);
         Result<Boolean> resBean = new Result();
-        //获取登录用户的相关信息
         try {
             resBean = stuInfoService.addStuInfo(studentRegisterInVO);
         }catch (Exception e){
@@ -130,7 +69,6 @@ public class StuInfoController {
     public String studentList(@RequestBody StuInfoInVO stuInfoInVO, HttpServletRequest request){
         log.info("Enter studentList stuInfoInVO={}", stuInfoInVO);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
-        //获取登录用户的相关信息
         try {
             resBean = stuInfoService.getStudentList(stuInfoInVO);
         }catch (Exception e){
@@ -150,7 +88,6 @@ public class StuInfoController {
     public String updateStu(@RequestBody StudentUpdateInVO studentUpdateInVO){
         log.info("Enter updateStu studentUpdateInVO={}", studentUpdateInVO);
         Result<Boolean> resBean = new Result();
-        //获取登录用户的相关信息
         try {
             resBean = stuInfoService.updateStu(studentUpdateInVO);
         }catch (Exception e){
@@ -172,7 +109,6 @@ public class StuInfoController {
     public String updateBatchStatus(@RequestParam(value = "ids") String ids){
         log.info("Enter updateBatchStatus ids={}", ids);
         Result<Boolean> resBean = new Result();
-        //获取登录用户的相关信息
         try {
             resBean = stuInfoService.updateBatchStatus(ids);
         }catch (Exception e){
@@ -182,52 +118,6 @@ public class StuInfoController {
         }
         log.info("updateBatchStatus={}",resBean);
         return JSON.toJSONString(resBean);
-    }
-
-    @PostMapping(value = "upLoadAccessory", produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String upLoadAccessory(@RequestParam("file")MultipartFile file,HttpServletRequest request){
-        Result<Map<String, Object>> res = new Result<Map<String, Object>>(ResultCode.ERROR_DATA, "上传失败", null);
-
-        Map<String,Object> map = new HashMap<>();
-        //保存时的文件名
-        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-        Calendar calendar = Calendar.getInstance();
-        String dateName = df.format(calendar.getTime())+file.getOriginalFilename();
-
-        System.out.println(dateName);
-        //保存文件的绝对路径
-        WebApplicationContext webApplicationContext = (WebApplicationContext) SpringContextUtil.applicationContext;
-        ServletContext servletContext = webApplicationContext.getServletContext();
-        String realPath = servletContext.getRealPath("/");
-        String filePath = realPath + "resources"+ File.separator +"static" + File.separator+dateName;
-        System.out.println("绝对路径:"+filePath);
-
-        File newFile = new File(filePath);
-
-        //MultipartFile的方法直接写文件
-        try {
-            //上传文件
-            file.transferTo(newFile);
-
-            //数据库存储的相对路径
-            String projectPath = servletContext.getContextPath();
-            String contextpath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+projectPath;
-            String url = contextpath + "/resource/"+dateName;
-            System.out.println("相对路径:"+url);
-            //文件名与文件URL存入数据库表
-
-
-
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        res.setCode(ResultCode.SUCCESS);
-        res.setContent(null);
-        res.setMsg("上传成功");
-        return JSONUtils.toJSONString(res);
     }
 
 }

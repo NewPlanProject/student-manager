@@ -32,7 +32,6 @@ public class ExamInfoController {
     @ResponseBody
     public String colleges(){
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
-        //获取登录用户的相关信息
         try {
             resBean = examInfoService.colleges();
         }catch (Exception e){
@@ -51,7 +50,6 @@ public class ExamInfoController {
     public String majors(@RequestParam Integer pid){
         log.info("Enter majors pid={}", pid);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
-        //获取登录用户的相关信息
         try {
             resBean = examInfoService.majors(pid);
         }catch (Exception e){
@@ -70,7 +68,6 @@ public class ExamInfoController {
     public String courses(@RequestParam Integer pid){
         log.info("Enter majors pid={}", pid);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
-        //获取登录用户的相关信息
         try {
             resBean = examInfoService.courses(pid);
         }catch (Exception e){
