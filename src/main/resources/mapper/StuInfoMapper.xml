@@ -285,6 +285,13 @@
         <include refid="stuInfoLimit" />
     </select>
 
+    <select id="getStuInObject" resultMap="stuInfoResultMap">
+        SELECT
+        <include refid="stuInfoColumns" />
+        FROM stu_info
+        <trim prefix="WHERE" prefixOverrides="AND">AND id_card = #{idCard}</trim>
+    </select>
+
     <select id="pageStuInfoCount" resultType="java.lang.Integer">
         SELECT COUNT(id) FROM stu_info
         <include refid="stuInfoWhere" />

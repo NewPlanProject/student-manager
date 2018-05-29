@@ -35,4 +35,6 @@ public interface ExamManagerService {
      * @return
      */
     Result<Map<String,Object>> examInfoList(ExamMangerInfoInVO examMangerInfoInVO);
+
+    Result<Map<String,Object>> detail(String id);
 }

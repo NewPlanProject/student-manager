@@ -36,6 +36,8 @@ class ExamManagerServiceImpl implements ExamManagerService {
 
     @Autowired
     private ExamManagerDao examManagerDao;
+    @Autowired
+    private StuInfoDao stuInfoDao;
 
     @Override
     public Result<Boolean> add(ExamMangerSaveInVO examMangerSaveInVO) {
@@ -44,6 +46,13 @@ class ExamManagerServiceImpl implements ExamManagerService {
         ExamManager examManager=new ExamManager();
         BeanUtils.copyProperties(examMangerSaveInVO, examManager);
         try {
+            if(CodeUtil.isNotNull(examMangerSaveInVO.getIdCard())){
+                StuInfo stuInfo=new StuInfo();
+                List<StuInfo> stuInfos = stuInfoDao.selectList(stuInfo, "getStuInObject");
+                if(CodeUtil.isNotNull(stuInfos)){
+                    examManager.setStuId(stuInfos.get(0).getId());
+                }
+            }
             //生成uuid
             String uuid = UUIDUtil.creatUUID();
             examManager.setId(uuid);
@@ -104,6 +113,25 @@ class ExamManagerServiceImpl implements ExamManagerService {
         res.setContent(resultMap);
         res.setMsg("查询成功");
         log.info("Get examManagerList size={}",examManagerList!=null?examManagerList.size() : "");
+        return res;
+    }
+
+    @Override
+    public Result<Map<String, Object>> detail(String id) {
+        Result<Map<String, Object>> res = new Result<Map<String, Object>>(ResultCode.ERROR_DATA,"查询失败",null);
+        Map<String, Object> resultMap = new HashedMap();
+        ExamManager examManager=new ExamManager();
+        examManager.setId(id);
+        try {
+            ExamManager examManager1 = this.examManagerDao.selectOne(examManager);
+            resultMap = new HashMap<String, Object>();
+            resultMap.put("rows",examManager1);
+        }catch (Exception e){
+            log.error("Find Exception", e);
+        }
+        res.setCode(ResultCode.SUCCESS);
+        res.setContent(resultMap);
+        res.setMsg("查询成功");
         return res;
     }
 

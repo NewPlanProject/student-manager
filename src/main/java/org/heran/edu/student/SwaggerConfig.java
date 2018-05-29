@@ -27,7 +27,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("远程监控中使用Swagger2构建RESTful APIs")
+                .title("联硕教育中使用Swagger2构建RESTful APIs")
                 .description("如果有疑问可以及时沟通开发人员")
                 .termsOfServiceUrl("jianan@git.com.cn")
                 .contact("贾楠")

@@ -30,7 +30,7 @@ public class FastDFSClientWrapper {
      */
     public String uploadFile(MultipartFile file) throws IOException {
         StorePath storePath = storageClient.uploadFile(file.getInputStream(),file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()),null);
-        return null;
+        return storePath.getFullPath();
     }
 
     /**

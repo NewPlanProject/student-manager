@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.heran.edu.student.domain.ExamInfo;
 import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
 import org.heran.edu.student.util.data.ResultCode;
@@ -32,12 +33,38 @@ public class StuInfoController {
     @Autowired
     private FastDFSClientWrapper dfsClient;
 
-    // 上传文件
+    /**
+     * 上传文件
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @ResponseBody
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String fileUrl= dfsClient.uploadFile(file);
         return JSON.toJSONString(fileUrl);
+    }
+
+    /**
+     *
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delFile", method = RequestMethod.GET)
+    public String delFile(String filePath) throws Exception {
+        String result="false";
+        try {
+            dfsClient.deleteFile(filePath);
+            result="true";
+        }catch (Exception e){
+            log.error("delFile", e);
+        }
+        return JSON.toJSONString(result);
     }
 
     @ApiOperation(value = "学生注册功能")
