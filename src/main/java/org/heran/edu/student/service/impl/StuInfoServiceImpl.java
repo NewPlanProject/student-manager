@@ -3,6 +3,7 @@ package org.heran.edu.student.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.map.HashedMap;
 import org.heran.edu.student.dao.StuInfoDao;
+import org.heran.edu.student.domain.ExamManager;
 import org.heran.edu.student.domain.StuInfo;
 import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
@@ -123,5 +124,24 @@ class StuInfoServiceImpl implements StuInfoService {
         resBean.setMsg("修改成功");
         resBean.setCode(ResultCode.SUCCESS);
         return resBean;
+    }
+
+    @Override
+    public Result<Map<String, Object>> detail(String id) {
+        Result<Map<String, Object>> res = new Result<Map<String, Object>>(ResultCode.ERROR_DATA,"查询失败",null);
+        Map<String, Object> resultMap = new HashedMap();
+        StuInfo stuInfo=new StuInfo();
+        stuInfo.setId(id);
+        try {
+            StuInfo stuInfo1 = this.stuInfoDao.selectOne(stuInfo);
+            resultMap = new HashMap<String, Object>();
+            resultMap.put("rows",stuInfo1);
+        }catch (Exception e){
+            log.error("Find Exception", e);
+        }
+        res.setCode(ResultCode.SUCCESS);
+        res.setContent(resultMap);
+        res.setMsg("查询成功");
+        return res;
     }
 }

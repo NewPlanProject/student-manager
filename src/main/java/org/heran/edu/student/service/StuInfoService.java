@@ -42,4 +42,11 @@ public interface StuInfoService {
      * @return
      */
     Result<Boolean> updateBatchStatus(String ids);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Result<Map<String,Object>> detail(String id);
 }

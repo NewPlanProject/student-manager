@@ -103,7 +103,7 @@ public class ExamManagerController {
     @GetMapping(value = "detail", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String detail(@RequestParam String id){
-        log.info("Enter detail pid={}", id);
+        log.info("Enter detail id={}", id);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examManagerService.detail(id);

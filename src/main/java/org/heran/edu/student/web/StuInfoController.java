@@ -147,4 +147,23 @@ public class StuInfoController {
         return JSON.toJSONString(resBean);
     }
 
+
+    @ApiOperation(value = "学生信息详情")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "id", required = false, paramType = "query", dataType = "string")
+    })
+    @GetMapping(value = "detail", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String detail(@RequestParam String id){
+        log.info("Enter detail id={}", id);
+        Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
+        try {
+            resBean = stuInfoService.detail(id);
+        }catch (Exception e){
+            log.error("detail failed",e);
+        }
+        log.info("detail={}",resBean);
+        return JSON.toJSONString(resBean);
+    }
+
 }

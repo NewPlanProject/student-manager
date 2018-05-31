@@ -49,7 +49,7 @@ class ExamManagerServiceImpl implements ExamManagerService {
             if(CodeUtil.isNotNull(examMangerSaveInVO.getIdCard())){
                 StuInfo stuInfo=new StuInfo();
                 List<StuInfo> stuInfos = stuInfoDao.selectList(stuInfo, "getStuInObject");
-                if(CodeUtil.isNotNull(stuInfos)){
+                if(stuInfos.size()>0){
                     examManager.setStuId(stuInfos.get(0).getId());
                 }
             }
