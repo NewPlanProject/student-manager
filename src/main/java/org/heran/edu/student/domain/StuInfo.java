@@ -31,7 +31,7 @@ public class StuInfo extends PageEntity implements Serializable {
     private String examArae;    //考区
     private String examPlace;    //考试地点
     private String testPeriod;  //考期
-    private String batch;  //考期
+    private String batch;  //批次
     private String degreeOrNo; //学位与否[true:是;false:否]
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date enlistsTime;   //报名时间
@@ -50,6 +50,12 @@ public class StuInfo extends PageEntity implements Serializable {
     private String payment; //支付方式
     private String dataGather;  //资料收集
     private String remark;  //备注
+    private String cardFrontUrl;  //身份证正面图片地址
+    private String cardReverseUrl;  //身份证反面图片地址
+    private String photoUrl;  //两寸照片图片地址
+    private String contractUrl;  //合同地址
+    private String receiptUrl;  //收据地址
+    private String diplomaUrl;  //学位证书地址
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date startDate;        //开始时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")

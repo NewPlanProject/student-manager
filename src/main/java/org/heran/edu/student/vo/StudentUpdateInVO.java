@@ -60,6 +60,18 @@ public class StudentUpdateInVO {
     private String dataGather;
     @ApiModelProperty(value = "备注",example = "备注")
     private String remark;
+    @ApiModelProperty(value = "身份证正面图片地址",example = "身份证正面图片地址")
+    private String cardFrontUrl;
+    @ApiModelProperty(value = "身份证反面图片地址",example = "身份证反面图片地址")
+    private String cardReverseUrl;
+    @ApiModelProperty(value = "两寸照片图片地址",example = "两寸照片图片地址")
+    private String photoUrl;
+    @ApiModelProperty(value = "合同地址",example = "合同地址")
+    private String contractUrl;
+    @ApiModelProperty(value = "收据地址",example = "收据地址")
+    private String receiptUrl;
+    @ApiModelProperty(value = "学位证书地址",example = "学位证书地址")
+    private String diplomaUrl;
     @ApiModelProperty(value = "报名时间",example = "2018-04-25 06:08:28")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date enlistsTime;

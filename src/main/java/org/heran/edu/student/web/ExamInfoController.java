@@ -41,7 +41,7 @@ public class ExamInfoController {
         return JSON.toJSONString(resBean);
     }
 
-    @ApiOperation(value = "查询专业")
+    @ApiOperation(value = "查询某学院专业")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pid", value = "父级id", required = false, paramType = "query", dataType = "int")
     })
@@ -59,17 +59,35 @@ public class ExamInfoController {
         return JSON.toJSONString(resBean);
     }
 
-    @ApiOperation(value = "查询课程")
+    @ApiOperation(value = "查询某专业课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pid", value = "父级id", required = false, paramType = "query", dataType = "int")
     })
     @GetMapping(value = "courses", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String courses(@RequestParam Integer pid){
-        log.info("Enter majors pid={}", pid);
+        log.info("Enter courses pid={}", pid);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examInfoService.courses(pid);
+        }catch (Exception e){
+            log.error("courses failed",e);
+        }
+        log.info("courses={}",resBean);
+        return JSON.toJSONString(resBean);
+    }
+
+    @ApiOperation(value = "查询多个课程相关信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", value = "课程id", required = false, paramType = "query", dataType = "int")
+    })
+    @GetMapping(value = "courseInfos", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String courseInfos(@RequestParam Long[] ids){
+        log.info("Enter courseInfos ids={}", ids);
+        Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
+        try {
+            resBean = examInfoService.courseInfos(ids);
         }catch (Exception e){
             log.error("courses failed",e);
         }

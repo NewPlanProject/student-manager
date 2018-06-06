@@ -130,4 +130,18 @@
         <if test="pid!=0">AND exam_info.pid = #{pid}</if>
         ORDER BY  exam_info.name DESC
     </select>
+
+
+    <select id="courseInfos" resultMap="examInfoResultMap">
+        SELECT
+        exam_info.id AS exam_info_id, exam_info.name AS exam_info_name,exam_info.code AS exam_info_code, exam_info.value AS exam_info_value
+        FROM exam_info
+        Where exam_info.type = "2"
+        <if test="id!=null">AND exam_info.id in
+            <foreach item="item" index="index" collection="ids"
+                     open="(" separator="," close=")">#{item}
+            </foreach>
+        </if>
+        ORDER BY  exam_info.name DESC
+    </select>
 </mapper>

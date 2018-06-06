@@ -17,5 +17,6 @@ public class ExamInfo extends PageEntity implements Serializable {
     private String code;
     private String value;
     private String type;
+    private Long[] ids;
 
 }

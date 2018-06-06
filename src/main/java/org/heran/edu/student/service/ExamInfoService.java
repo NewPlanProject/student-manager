@@ -1,9 +1,6 @@
 package org.heran.edu.student.service;
 
 import org.heran.edu.student.util.data.Result;
-import org.heran.edu.student.vo.StuInfoInVO;
-import org.heran.edu.student.vo.StudentRegisterInVO;
-import org.heran.edu.student.vo.StudentUpdateInVO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
@@ -35,4 +32,6 @@ public interface ExamInfoService {
      * @return
      */
     Result<Map<String,Object>> courses(Integer pid);
+
+    Result<Map<String,Object>> courseInfos(Long[] ids);
 }

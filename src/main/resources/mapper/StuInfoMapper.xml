@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="StuInfoMapper">
     
-    <sql id="stuInfoColumns">stu_info.id AS stu_info_id, stu_info.name AS stu_info_name, stu_info.native_place AS stu_info_native_place, stu_info.sex AS stu_info_sex, stu_info.nation AS stu_info_nation, stu_info.mobile AS stu_info_mobile, stu_info.mailbox AS stu_info_mailbox, stu_info.id_card AS stu_info_id_card, stu_info.certificate_no AS stu_info_certificate_no, stu_info.admissiont_no AS stu_info_admissiont_no, stu_info.gradation AS stu_info_gradation, stu_info.now_academy AS stu_info_now_academy, stu_info.major AS stu_info_major, stu_info.registion_item AS stu_info_registion_item, stu_info.old_academy AS stu_info_old_academy, stu_info.exam_arae AS stu_info_exam_arae, stu_info.exam_place AS stu_info_exam_place, stu_info.test_period AS stu_info_test_period,stu_info.batch AS stu_info_batch, stu_info.degree_or_no AS stu_info_degree_or_no, stu_info.enlists_time AS stu_info_enlists_time, stu_info.highest_edu AS stu_info_highest_edu, stu_info.consultant AS stu_info_consultant, stu_info.counsellors AS stu_info_counsellors, stu_info.contract_no AS stu_info_contract_no, stu_info.receipt_no AS stu_info_receipt_no, stu_info.training_fee AS stu_info_training_fee, stu_info.yet_fee AS stu_info_yet_fee, stu_info.no_fee AS stu_info_no_fee, stu_info.reduced_price AS stu_info_reduced_price, stu_info.status AS stu_info_status, stu_info.stu_status AS stu_info_stu_status, stu_info.channel_realize AS stu_info_channel_realize, stu_info.payment AS stu_info_payment, stu_info.data_gather AS stu_info_data_gather, stu_info.remark AS stu_info_remark, stu_info.createtime AS stu_info_createtime, stu_info.create_user AS stu_info_create_user, stu_info.updatetime AS stu_info_updatetime, stu_info.update_user AS stu_info_update_user</sql>
+    <sql id="stuInfoColumns">stu_info.id AS stu_info_id, stu_info.name AS stu_info_name, stu_info.native_place AS stu_info_native_place, stu_info.sex AS stu_info_sex, stu_info.nation AS stu_info_nation, stu_info.mobile AS stu_info_mobile, stu_info.mailbox AS stu_info_mailbox, stu_info.id_card AS stu_info_id_card, stu_info.certificate_no AS stu_info_certificate_no, stu_info.admissiont_no AS stu_info_admissiont_no, stu_info.gradation AS stu_info_gradation, stu_info.now_academy AS stu_info_now_academy, stu_info.major AS stu_info_major, stu_info.registion_item AS stu_info_registion_item, stu_info.old_academy AS stu_info_old_academy, stu_info.exam_arae AS stu_info_exam_arae, stu_info.exam_place AS stu_info_exam_place, stu_info.test_period AS stu_info_test_period,stu_info.batch AS stu_info_batch, stu_info.degree_or_no AS stu_info_degree_or_no, stu_info.enlists_time AS stu_info_enlists_time, stu_info.highest_edu AS stu_info_highest_edu, stu_info.consultant AS stu_info_consultant, stu_info.counsellors AS stu_info_counsellors, stu_info.contract_no AS stu_info_contract_no, stu_info.receipt_no AS stu_info_receipt_no, stu_info.training_fee AS stu_info_training_fee, stu_info.yet_fee AS stu_info_yet_fee, stu_info.no_fee AS stu_info_no_fee, stu_info.reduced_price AS stu_info_reduced_price, stu_info.status AS stu_info_status, stu_info.stu_status AS stu_info_stu_status, stu_info.channel_realize AS stu_info_channel_realize, stu_info.payment AS stu_info_payment, stu_info.data_gather AS stu_info_data_gather, stu_info.remark AS stu_info_remark, stu_info.card_front_url AS stu_info_card_front_url, stu_info.card_reverse_url AS stu_info_card_reverse_url, stu_info.photo_url AS stu_info_photo_url, stu_info.contract_url AS stu_info_contract_url, stu_info.receipt_url AS stu_info_receipt_url, stu_info.diploma_url AS stu_info_diploma_url, stu_info.createtime AS stu_info_createtime, stu_info.create_user AS stu_info_create_user, stu_info.updatetime AS stu_info_updatetime, stu_info.update_user AS stu_info_update_user</sql>
     
     <sql id="stuInfoWhere">
         <trim prefix="WHERE" prefixOverrides="AND">
@@ -42,6 +42,12 @@
             <if test="payment!=null">AND stu_info.payment = #{payment}</if>
             <if test="dataGather!=null">AND stu_info.data_gather = #{dataGather}</if>
             <if test="remark!=null">AND stu_info.remark = #{remark}</if>
+            <if test="cardFrontUrl!=null">AND stu_info.card_front_url = #{cardFrontUrl}</if>
+            <if test="cardReverseUrl!=null">AND stu_info.card_reverse_url = #{cardReverseUrl}</if>
+            <if test="photoUrl!=null">AND stu_info.photo_url = #{photoUrl}</if>
+            <if test="contractUrl!=null">AND stu_info.contract_url = #{contractUrl}</if>
+            <if test="receiptUrl!=null">AND stu_info.receipt_url = #{receiptUrl}</if>
+            <if test="diplomaUrl!=null">AND stu_info.diploma_url = #{diplomaUrl}</if>
             <if test="startDate!=null">AND stu_info.createtime &gt;= #{startDate}</if>
             <if test="endDate!=null">AND stu_info.createtime &lt;=#{endDate}</if>
             <if test="createUser!=null">AND stu_info.create_user = #{createUser}</if>
@@ -97,6 +103,12 @@
         <result column="stu_info_payment" property="payment" />
         <result column="stu_info_data_gather" property="dataGather" />
         <result column="stu_info_remark" property="remark" />
+        <result column="stu_info_card_front_url" property="cardFrontUrl" />
+        <result column="stu_info_card_reverse_url" property="cardReverseUrl" />
+        <result column="stu_info_photo_url" property="photoUrl" />
+        <result column="stu_info_contract_url" property="contractUrl" />
+        <result column="stu_info_receipt_url" property="receiptUrl" />
+        <result column="stu_info_diploma_url" property="diplomaUrl" />
         <result column="stu_info_createtime" property="createtime" />
         <result column="stu_info_create_user" property="createUser" />
         <result column="stu_info_updatetime" property="updatetime" />
@@ -173,6 +185,12 @@
             <if test="payment!=null">,payment</if>
             <if test="dataGather!=null">,data_gather</if>
             <if test="remark!=null">,remark</if>
+            <if test="cardFrontUrl!=null">,card_front_url</if>
+            <if test="cardReverseUrl!=null">,card_reverse_url</if>
+            <if test="photoUrl!=null">,photo_url</if>
+            <if test="contractUrl!=null">,contract_url</if>
+            <if test="receiptUrl!=null">,receipt_url</if>
+            <if test="diplomaUrl!=null">,diploma_url</if>
             <if test="createtime!=null">,createtime</if>
             <if test="createUser!=null">,create_user</if>
             <if test="updatetime!=null">,updatetime</if>
@@ -216,6 +234,12 @@
             <if test="payment!=null">,#{payment}</if>
             <if test="dataGather!=null">,#{dataGather}</if>
             <if test="remark!=null">,#{remark}</if>
+            <if test="cardFrontUrl!=null">,#{cardFrontUrl}</if>
+            <if test="cardReverseUrl!=null">,#{cardReverseUrl}</if>
+            <if test="photoUrl!=null">,#{photoUrl}</if>
+            <if test="contractUrl!=null">,#{contractUrl}</if>
+            <if test="receiptUrl!=null">,#{receiptUrl}</if>
+            <if test="diplomaUrl!=null">,#{diplomaUrl}</if>
             <if test="createtime!=null">,#{createtime}</if>
             <if test="createUser!=null">,#{createUser}</if>
             <if test="updatetime!=null">,#{updatetime}</if>
@@ -263,6 +287,12 @@
             <if test="payment!=null">,payment = #{payment}</if>
             <if test="dataGather!=null">,data_gather = #{dataGather}</if>
             <if test="remark!=null">,remark = #{remark}</if>
+            <if test="cardFrontUrl!=null">card_front_url= #{cardFrontUrl}</if>
+            <if test="cardReverseUrl!=null">card_reverse_url =#{cardReverseUrl}</if>
+            <if test="photoUrl!=null">photo_url=#{photoUrl}</if>
+            <if test="contractUrl!=null">contract_url=#{contractUrl}</if>
+            <if test="receiptUrl!=null">receipt_url=#{receiptUrl}</if>
+            <if test="diplomaUrl!=null">diploma_url=#{diplomaUrl}</if>
             <if test="createtime!=null">,createtime = #{createtime}</if>
             <if test="createUser!=null">,create_user = #{createUser}</if>
             <if test="updatetime!=null">,updatetime = #{updatetime}</if>
