@@ -34,7 +34,7 @@ class StuInfoServiceImpl implements StuInfoService {
 
     @Override
     public Result<Boolean> addStuInfo(StudentRegisterInVO studentRegisterInVO) {
-        log.info("Enter addStuInfo studentRegisterInVO={}", studentRegisterInVO);
+        log.debug("Enter addStuInfo studentRegisterInVO={}", studentRegisterInVO);
         Result<Boolean> resBean = new Result<Boolean>(ResultCode.ERROR_SERVICE, "保存失败", false);
         StuInfo stuInfo = new StuInfo();
         BeanUtils.copyProperties(studentRegisterInVO, stuInfo);
@@ -60,7 +60,7 @@ class StuInfoServiceImpl implements StuInfoService {
     @Override
     public Result<Map<String, Object>> getStudentList(StuInfoInVO stuInfoInVO) {
         Result<Map<String, Object>> res = new Result<Map<String, Object>>(ResultCode.ERROR_DATA,"查询失败",null);
-        log.info("Enter getStudentList stuInfoInVO={}",stuInfoInVO);
+        log.debug("Enter getStudentList stuInfoInVO={}",stuInfoInVO);
         List<StuInfo> stuInfos = new ArrayList<>();
         Map<String, Object> resultMap = new HashedMap();
         StuInfo stuInfo= new StuInfo();
@@ -78,13 +78,13 @@ class StuInfoServiceImpl implements StuInfoService {
         res.setCode(ResultCode.SUCCESS);
         res.setContent(resultMap);
         res.setMsg("查询成功");
-        log.info("Get getStudentList size={}",stuInfos!=null?stuInfos.size() : "");
+        log.debug("Get getStudentList size={}",stuInfos!=null?stuInfos.size() : "");
         return res;
     }
 
     @Override
     public Result<Boolean> updateStu(StudentUpdateInVO studentUpdateInVO) {
-        log.info("Enter updateStu studentUpdateInVO={}", studentUpdateInVO);
+        log.debug("Enter updateStu studentUpdateInVO={}", studentUpdateInVO);
         Result<Boolean> resBean = new Result<Boolean>(ResultCode.ERROR_SERVICE, "修改失败", false);
         StuInfo stuInfo = new StuInfo();
         BeanUtils.copyProperties(studentUpdateInVO, stuInfo);
@@ -104,7 +104,7 @@ class StuInfoServiceImpl implements StuInfoService {
 
     @Override
     public Result<Boolean> updateBatchStatus(String ids) {
-        log.info("Enter updateBatchStatus ids={}", ids);
+        log.debug("Enter updateBatchStatus ids={}", ids);
         Result<Boolean> resBean = new Result<Boolean>(ResultCode.ERROR_SERVICE, "修改失败", false);
         String[] split = ids.split(",");
         try {

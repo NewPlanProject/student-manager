@@ -37,7 +37,7 @@ public class ExamInfoController {
         }catch (Exception e){
             log.error("colleges failed",e);
         }
-        log.info("colleges={}",resBean);
+        log.debug("colleges={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -48,14 +48,14 @@ public class ExamInfoController {
     @GetMapping(value = "majors", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String majors(@RequestParam Integer pid){
-        log.info("Enter majors pid={}", pid);
+        log.debug("Enter majors pid={}", pid);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examInfoService.majors(pid);
         }catch (Exception e){
             log.error("majors failed",e);
         }
-        log.info("majors={}",resBean);
+        log.debug("majors={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -66,14 +66,14 @@ public class ExamInfoController {
     @GetMapping(value = "courses", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String courses(@RequestParam Integer pid){
-        log.info("Enter courses pid={}", pid);
+        log.debug("Enter courses pid={}", pid);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examInfoService.courses(pid);
         }catch (Exception e){
             log.error("courses failed",e);
         }
-        log.info("courses={}",resBean);
+        log.debug("courses={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -84,14 +84,14 @@ public class ExamInfoController {
     @GetMapping(value = "courseInfos", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String courseInfos(@RequestParam Long[] ids){
-        log.info("Enter courseInfos ids={}", ids);
+        log.debug("Enter courseInfos ids={}", ids);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examInfoService.courseInfos(ids);
         }catch (Exception e){
             log.error("courses failed",e);
         }
-        log.info("courses={}",resBean);
+        log.debug("courses={}",resBean);
         return JSON.toJSONString(resBean);
     }
 }

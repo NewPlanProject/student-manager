@@ -74,7 +74,7 @@ public class StuInfoController {
     @PutMapping(value = "stuRegister", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String stuRegister(@RequestBody StudentRegisterInVO studentRegisterInVO){
-        log.info("Enter stuRegister studentRegisterInVO={}", studentRegisterInVO);
+        log.debug("Enter stuRegister studentRegisterInVO={}", studentRegisterInVO);
         Result<Boolean> resBean = new Result();
         try {
             resBean = stuInfoService.addStuInfo(studentRegisterInVO);
@@ -83,7 +83,7 @@ public class StuInfoController {
             resBean.setMsg("保存失败");
             log.error("stuRegister failed", e);
         }
-        log.info("stuRegister={}",resBean);
+        log.debug("stuRegister={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -94,14 +94,14 @@ public class StuInfoController {
     @PostMapping(value = "studentList", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String studentList(@RequestBody StuInfoInVO stuInfoInVO, HttpServletRequest request){
-        log.info("Enter studentList stuInfoInVO={}", stuInfoInVO);
+        log.debug("Enter studentList stuInfoInVO={}", stuInfoInVO);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = stuInfoService.getStudentList(stuInfoInVO);
         }catch (Exception e){
             log.error("studentList failed",e);
         }
-        log.info("studentList={}",resBean);
+        log.debug("studentList={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -113,7 +113,7 @@ public class StuInfoController {
     @PutMapping(value = "updateStu", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String updateStu(@RequestBody StudentUpdateInVO studentUpdateInVO){
-        log.info("Enter updateStu studentUpdateInVO={}", studentUpdateInVO);
+        log.debug("Enter updateStu studentUpdateInVO={}", studentUpdateInVO);
         Result<Boolean> resBean = new Result();
         try {
             resBean = stuInfoService.updateStu(studentUpdateInVO);
@@ -122,7 +122,7 @@ public class StuInfoController {
             resBean.setMsg("修改失败");
             log.error("updateStu failed", e);
         }
-        log.info("updateStu={}",resBean);
+        log.debug("updateStu={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -134,7 +134,7 @@ public class StuInfoController {
     @PutMapping(value = "updateBatchStatus", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String updateBatchStatus(@RequestParam(value = "ids") String ids){
-        log.info("Enter updateBatchStatus ids={}", ids);
+        log.debug("Enter updateBatchStatus ids={}", ids);
         Result<Boolean> resBean = new Result();
         try {
             resBean = stuInfoService.updateBatchStatus(ids);
@@ -143,7 +143,7 @@ public class StuInfoController {
             resBean.setMsg("修改失败");
             log.error("updateBatchStatus failed", e);
         }
-        log.info("updateBatchStatus={}",resBean);
+        log.debug("updateBatchStatus={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -155,14 +155,14 @@ public class StuInfoController {
     @GetMapping(value = "detail", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String detail(@RequestParam String id){
-        log.info("Enter detail id={}", id);
+        log.debug("Enter detail id={}", id);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = stuInfoService.detail(id);
         }catch (Exception e){
             log.error("detail failed",e);
         }
-        log.info("detail={}",resBean);
+        log.debug("detail={}",resBean);
         return JSON.toJSONString(resBean);
     }
 

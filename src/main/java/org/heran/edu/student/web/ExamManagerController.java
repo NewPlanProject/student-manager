@@ -46,14 +46,14 @@ public class ExamManagerController {
     @GetMapping(value = "ifIdCard", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String ifIdCard(@RequestParam String idCard){
-        log.info("Enter ifIdCard idCard={}", idCard);
+        log.debug("Enter ifIdCard idCard={}", idCard);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examManagerService.ifIdCard(idCard);
         }catch (Exception e){
             log.error("ifIdCard failed",e);
         }
-        log.info("ifIdCard={}",resBean);
+        log.debug("ifIdCard={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -65,7 +65,7 @@ public class ExamManagerController {
     @PutMapping(value = "add", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String add(@RequestBody ExamMangerSaveInVO examMangerSaveInVO){
-        log.info("Enter add examMangerSaveInVO={}", examMangerSaveInVO);
+        log.debug("Enter add examMangerSaveInVO={}", examMangerSaveInVO);
         Result<Boolean> resBean = new Result();
         try {
             resBean = examManagerService.add(examMangerSaveInVO);
@@ -74,7 +74,7 @@ public class ExamManagerController {
             resBean.setMsg("保存失败");
             log.error("add failed", e);
         }
-        log.info("add={}",resBean);
+        log.debug("add={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -85,14 +85,14 @@ public class ExamManagerController {
     @PostMapping(value = "examInfoList", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String examInfoList(@RequestBody ExamMangerInfoInVO examMangerInfoInVO){
-        log.info("Enter examInfoList examMangerInfoInVO={}", examMangerInfoInVO);
+        log.debug("Enter examInfoList examMangerInfoInVO={}", examMangerInfoInVO);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examManagerService.examInfoList(examMangerInfoInVO);
         }catch (Exception e){
             log.error("examInfoList failed",e);
         }
-        log.info("examInfoList={}",resBean);
+        log.debug("examInfoList={}",resBean);
         return JSON.toJSONString(resBean);
     }
 
@@ -103,14 +103,14 @@ public class ExamManagerController {
     @GetMapping(value = "detail", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String detail(@RequestParam String id){
-        log.info("Enter detail id={}", id);
+        log.debug("Enter detail id={}", id);
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
         try {
             resBean = examManagerService.detail(id);
         }catch (Exception e){
             log.error("detail failed",e);
         }
-        log.info("detail={}",resBean);
+        log.debug("detail={}",resBean);
         return JSON.toJSONString(resBean);
     }
 

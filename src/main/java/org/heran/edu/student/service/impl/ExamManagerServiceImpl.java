@@ -41,7 +41,7 @@ class ExamManagerServiceImpl implements ExamManagerService {
 
     @Override
     public Result<Boolean> add(ExamMangerSaveInVO examMangerSaveInVO) {
-        log.info("Enter addExam examMangerSaveInVO={}", examMangerSaveInVO);
+        log.debug("Enter addExam examMangerSaveInVO={}", examMangerSaveInVO);
         Result<Boolean> resBean = new Result<Boolean>(ResultCode.ERROR_SERVICE, "保存失败", false);
         ExamManager examManager=new ExamManager();
         BeanUtils.copyProperties(examMangerSaveInVO, examManager);
@@ -94,7 +94,7 @@ class ExamManagerServiceImpl implements ExamManagerService {
     @Override
     public Result<Map<String, Object>> examInfoList(ExamMangerInfoInVO examMangerInfoInVO) {
         Result<Map<String, Object>> res = new Result<Map<String, Object>>(ResultCode.ERROR_DATA,"查询失败",null);
-        log.info("Enter examInfoList examMangerInfoInVO={}",examMangerInfoInVO);
+        log.debug("Enter examInfoList examMangerInfoInVO={}",examMangerInfoInVO);
         List<ExamManager> examManagerList = new ArrayList<>();
         Map<String, Object> resultMap = new HashedMap();
         ExamManager examManager= new ExamManager();
@@ -112,7 +112,7 @@ class ExamManagerServiceImpl implements ExamManagerService {
         res.setCode(ResultCode.SUCCESS);
         res.setContent(resultMap);
         res.setMsg("查询成功");
-        log.info("Get examManagerList size={}",examManagerList!=null?examManagerList.size() : "");
+        log.debug("Get examManagerList size={}",examManagerList!=null?examManagerList.size() : "");
         return res;
     }
 
