@@ -45,7 +45,10 @@ public class StuInfoController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String fileUrl= dfsClient.uploadFile(file);
-        return JSON.toJSONString(fileUrl);
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("http://111.198.15.79/");
+        stringBuilder.append(fileUrl);
+        return JSON.toJSONString(stringBuilder);
     }
 
     /**

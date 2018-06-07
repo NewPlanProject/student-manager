@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ExamManagerMapper">
     
-    <sql id="examManagerColumns">exam_manager.id AS exam_manager_id, exam_manager.stu_id AS exam_manager_stu_id, exam_manager.name AS exam_manager_name, exam_manager.id_card AS exam_manager_id_card, exam_manager.certificate_no AS exam_manager_certificate_no, exam_manager.admissiont_no AS exam_manager_admissiont_no, exam_manager.old_academy AS exam_manager_old_academy, exam_manager.now_academy AS exam_manager_now_academy, exam_manager.major AS exam_manager_major, exam_manager.course_name AS exam_manager_course_name, exam_manager.course_code AS exam_manager_course_code, exam_manager.course_mark AS exam_manager_course_mark, exam_manager.registion_time AS exam_manager_registion_time, exam_manager.gradation AS exam_manager_gradation, exam_manager.test_number AS exam_manager_test_number, exam_manager.stu_record AS exam_manager_stu_record, exam_manager.create_user AS exam_manager_create_user, exam_manager.create_time AS exam_manager_create_time, exam_manager.update_user AS exam_manager_update_user, exam_manager.update_time AS exam_manager_update_time</sql>
+    <sql id="examManagerColumns">exam_manager.id AS exam_manager_id, exam_manager.stu_id AS exam_manager_stu_id, exam_manager.name AS exam_manager_name, exam_manager.id_card AS exam_manager_id_card, exam_manager.certificate_no AS exam_manager_certificate_no, exam_manager.admissiont_no AS exam_manager_admissiont_no, exam_manager.old_academy AS exam_manager_old_academy, exam_manager.now_academy AS exam_manager_now_academy, exam_manager.major AS exam_manager_major, exam_manager.course_id AS exam_manager_course_id, exam_manager.course_name AS exam_manager_course_name, exam_manager.course_code AS exam_manager_course_code, exam_manager.course_mark AS exam_manager_course_mark, exam_manager.registion_time AS exam_manager_registion_time, exam_manager.gradation AS exam_manager_gradation, exam_manager.test_number AS exam_manager_test_number, exam_manager.stu_record AS exam_manager_stu_record, exam_manager.create_user AS exam_manager_create_user, exam_manager.create_time AS exam_manager_create_time, exam_manager.update_user AS exam_manager_update_user, exam_manager.update_time AS exam_manager_update_time</sql>
 
     <sql id="order">
         <if test="orderString!=null and sequence!=null">ORDER BY ${orderString} ${sequence}</if>
@@ -20,6 +20,7 @@
             <if test="nowAcademy!=null">AND exam_manager.now_academy = #{nowAcademy}</if>
             <if test="major!=null">AND exam_manager.major = #{major}</if>
             <if test="courseName!=null">AND exam_manager.course_name = #{courseName}</if>
+            <if test="courseId!=null">AND exam_manager.course_id = #{courseId}</if>
             <if test="courseCode!=null">AND exam_manager.course_code = #{courseCode}</if>
             <if test="courseMark!=null">AND exam_manager.course_mark = #{courseMark}</if>
             <if test="registionTime!=null">AND exam_manager.registion_time = #{registionTime}</if>
@@ -51,6 +52,7 @@
         <result column="exam_manager_now_academy" property="nowAcademy" />
         <result column="exam_manager_major" property="major" />
         <result column="exam_manager_course_name" property="courseName" />
+        <result column="exam_manager_course_id" property="courseId" />
         <result column="exam_manager_course_code" property="courseCode" />
         <result column="exam_manager_course_mark" property="courseMark" />
         <result column="exam_manager_registion_time" property="registionTime" />
@@ -106,6 +108,7 @@
             <if test="oldAcademy!=null">,old_academy</if>
             <if test="nowAcademy!=null">,now_academy</if>
             <if test="major!=null">,major</if>
+            <if test="courseId!=null">,course_id</if>
             <if test="courseName!=null">,course_name</if>
             <if test="courseCode!=null">,course_code</if>
             <if test="courseMark!=null">,course_mark</if>
@@ -129,6 +132,7 @@
             <if test="oldAcademy!=null">,#{oldAcademy}</if>
             <if test="nowAcademy!=null">,#{nowAcademy}</if>
             <if test="major!=null">,#{major}</if>
+            <if test="courseId!=null">,#{courseId}</if>
             <if test="courseName!=null">,#{courseName}</if>
             <if test="courseCode!=null">,#{courseCode}</if>
             <if test="courseMark!=null">,#{courseMark}</if>
@@ -156,6 +160,7 @@
             <if test="oldAcademy!=null">,old_academy = #{oldAcademy}</if>
             <if test="nowAcademy!=null">,now_academy = #{nowAcademy}</if>
             <if test="major!=null">,major = #{major}</if>
+            <if test="courseId!=null">,course_id = #{courseId}</if>
             <if test="courseName!=null">,course_name = #{courseName}</if>
             <if test="courseCode!=null">,course_code = #{courseCode}</if>
             <if test="courseMark!=null">,course_mark = #{courseMark}</if>

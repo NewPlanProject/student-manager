@@ -23,6 +23,7 @@ public class ExamManager extends PageEntity implements Serializable {
     private String nowAcademy;
     private String major;
     private String courseName;
+    private String courseId;
     private String courseCode;
     private String courseMark;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

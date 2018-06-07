@@ -26,6 +26,8 @@ public class ExamMangerSaveInVO {
     private String nowAcademy;
     @ApiModelProperty(value = "专业",example = "金融")
     private String major;
+    @ApiModelProperty(value = "课程ID",example = "课程ID")
+    private String courseId;
     @ApiModelProperty(value = "课程名称",example = "课程名称")
     private String courseName;
     @ApiModelProperty(value = "课程代码",example = "课程代码")
