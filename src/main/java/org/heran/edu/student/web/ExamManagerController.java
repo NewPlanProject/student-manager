@@ -78,6 +78,28 @@ public class ExamManagerController {
         return JSON.toJSONString(resBean);
     }
 
+
+    @ApiOperation(value = "修改报考信息功能")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "examMangerUpdateInVO", value = "报考信息修改对象", required = false, paramType = "body", dataType = "ExamMangerUpdateInVO")
+    })
+    @PutMapping(value = "/update", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String update(@RequestBody ExamMangerUpdateInVO examMangerUpdateInVO){
+        log.debug("Enter update examMangerUpdateInVO={}", examMangerUpdateInVO);
+        Result<Boolean> resBean = new Result();
+        try {
+            resBean = examManagerService.update(examMangerUpdateInVO);
+        }catch (Exception e){
+            resBean.setCode(ResultCode.ERROR_SERVICE);
+            resBean.setMsg("修改失败");
+            log.error("update failed", e);
+        }
+        log.debug("update={}",resBean);
+        return JSON.toJSONString(resBean);
+    }
+
+
     @ApiOperation(value = "报考信息查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "examMangerInfoInVO", value = "学生查询对象", required = false, paramType = "body", dataType = "ExamMangerInfoInVO")
@@ -96,6 +118,7 @@ public class ExamManagerController {
         return JSON.toJSONString(resBean);
     }
 
+
     @ApiOperation(value = "报考详情")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "id", required = false, paramType = "query", dataType = "string")
@@ -111,6 +134,30 @@ public class ExamManagerController {
             log.error("detail failed",e);
         }
         log.debug("detail={}",resBean);
+        return JSON.toJSONString(resBean);
+    }
+
+
+    @ApiOperation(value="报考信息删除", notes="根据id删除数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", value = "报考信息对象id", required = true, dataType = "string", paramType = "query")
+    })
+    @DeleteMapping(value="/del", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String del(@RequestParam(value = "ids") String[] ids) {
+        Result<Boolean> resBean = new Result<Boolean>(ResultCode.SUCCESS,"删除成功",true);
+        log.debug("Enter del ids={}", ids);
+        Boolean result = false;
+        try {
+            result = examManagerService.del(ids);
+        } catch (Exception e) {
+            log.error("Found Exception:", e);
+        }
+        if(!result){
+            resBean.setCode(ResultCode.ERROR_SERVICE);
+            resBean.setContent(result);
+            resBean.setMsg("删除失败");
+        }
         return JSON.toJSONString(resBean);
     }
 

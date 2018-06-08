@@ -72,6 +72,30 @@ class ExamManagerServiceImpl implements ExamManagerService {
         return resBean;
     }
 
+
+    @Override
+    public Result<Boolean> update(ExamMangerUpdateInVO examMangerUpdateInVO) {
+        log.debug("Enter updateExam examMangerUpdateInVO={}", examMangerUpdateInVO);
+        Result<Boolean> resBean = new Result<Boolean>(ResultCode.ERROR_SERVICE, "修改失败", false);
+        ExamManager examManager=new ExamManager();
+        BeanUtils.copyProperties(examMangerUpdateInVO, examManager);
+        try {
+            examManager.setUpdateTime(new Date());
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+            examManager.setTestNumber(sdf.format(d)+examManager.getStuRecord());
+            //修改操作
+            this.examManagerDao.update(examManager);
+            //给返回值赋值
+            resBean.setContent(true);
+            resBean.setMsg("修改成功");
+            resBean.setCode(ResultCode.SUCCESS);
+        } catch (Exception e) {
+            log.error("Find Exception", e);
+        }
+        return resBean;
+    }
+
     @Override
     public Result<Map<String, Object>> ifIdCard(String idCard) {
         Result<Map<String, Object>> res = new Result<Map<String, Object>>(ResultCode.ERROR_DATA,"该学生是老生",null);
@@ -134,5 +158,25 @@ class ExamManagerServiceImpl implements ExamManagerService {
         res.setMsg("查询成功");
         return res;
     }
+
+    @Override
+    public Boolean del(String[] ids) {
+        log.debug("Enter del knowid={}",ids);
+        boolean res = false;
+        try {
+            for(int i=0;i<ids.length;i++){
+                ExamManager examManager=new ExamManager();
+                examManager.setId(ids[i]);
+                this.examManagerDao.delete(examManager);
+            }
+            res=true;
+        }catch (Exception e){
+            log.error("Find Exception", e);
+        }
+        log.debug("Leave del res={}",res);
+        return res;
+    }
+
+
 
 }

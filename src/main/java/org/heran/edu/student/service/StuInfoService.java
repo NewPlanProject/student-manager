@@ -49,4 +49,12 @@ public interface StuInfoService {
      * @return
      */
     Result<Map<String,Object>> detail(String id);
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Boolean del(String[] id);
 }

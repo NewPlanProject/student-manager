@@ -43,4 +43,18 @@ public interface ExamManagerService {
      * @return
      */
     Result<Map<String,Object>> detail(String id);
+
+    /**
+     *
+     * @param ids
+     * @return
+     */
+    Boolean del(String[] ids);
+
+    /**
+     *
+     * @param examMangerUpdateInVO
+     * @return
+     */
+    Result<Boolean> update(ExamMangerUpdateInVO examMangerUpdateInVO);
 }

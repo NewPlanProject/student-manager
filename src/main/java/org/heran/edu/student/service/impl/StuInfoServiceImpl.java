@@ -39,18 +39,26 @@ class StuInfoServiceImpl implements StuInfoService {
         StuInfo stuInfo = new StuInfo();
         BeanUtils.copyProperties(studentRegisterInVO, stuInfo);
         try {
-            //生成uuid
-            String uuid = UUIDUtil.creatUUID();
-            stuInfo.setId(uuid);
-            stuInfo.setCreatetime(new Date());
-            stuInfo.setStatus("2");
-            stuInfo.setStuStatus("1");
-            //保存操作
-            this.stuInfoDao.save(stuInfo);
-            //给返回值赋值
-            resBean.setContent(true);
-            resBean.setMsg("保存成功");
-            resBean.setCode(ResultCode.SUCCESS);
+            //检查是否有重复学生信息
+            List<StuInfo> stuInfos = stuInfoDao.selectList(stuInfo, "getStuInObject");
+            if(stuInfos.size()>0){
+                resBean.setContent(false);
+                resBean.setMsg("学生信息重复");
+                resBean.setCode(ResultCode.ERROR_PARAMETER);
+            }else{
+                //生成uuid
+                String uuid = UUIDUtil.creatUUID();
+                stuInfo.setId(uuid);
+                stuInfo.setCreatetime(new Date());
+                stuInfo.setStatus("2");
+                stuInfo.setStuStatus("1");
+                //保存操作
+                this.stuInfoDao.save(stuInfo);
+                //给返回值赋值
+                resBean.setContent(true);
+                resBean.setMsg("保存成功");
+                resBean.setCode(ResultCode.SUCCESS);
+            }
         } catch (Exception e) {
             log.error("Find Exception", e);
         }
@@ -142,6 +150,24 @@ class StuInfoServiceImpl implements StuInfoService {
         res.setCode(ResultCode.SUCCESS);
         res.setContent(resultMap);
         res.setMsg("查询成功");
+        return res;
+    }
+
+    @Override
+    public Boolean del(String[] ids) {
+        log.debug("Enter del knowid={}",ids);
+        boolean res = false;
+        try {
+            for(int i=0;i<ids.length;i++){
+                StuInfo stuInfo = new StuInfo();
+                stuInfo.setId(ids[i]);
+                this.stuInfoDao.delete(stuInfo);
+            }
+            res=true;
+        }catch (Exception e){
+            log.error("Find Exception", e);
+        }
+        log.debug("Leave del res={}",res);
         return res;
     }
 }

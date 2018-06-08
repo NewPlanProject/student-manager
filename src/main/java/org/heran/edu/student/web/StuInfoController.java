@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.heran.edu.student.domain.ExamInfo;
 import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
@@ -166,6 +167,30 @@ public class StuInfoController {
             log.error("detail failed",e);
         }
         log.debug("detail={}",resBean);
+        return JSON.toJSONString(resBean);
+    }
+
+
+    @ApiOperation(value="学生信息删除", notes="根据id删除数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", value = "学生对象id", required = true, dataType = "string", paramType = "query")
+    })
+    @DeleteMapping(value="/del", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String del(@RequestParam(value = "ids") String[] ids) {
+        Result<Boolean> resBean = new Result<Boolean>(ResultCode.SUCCESS,"删除成功",true);
+        log.debug("Enter del ids={}", ids);
+        Boolean result = false;
+        try {
+            result = stuInfoService.del(ids);
+        } catch (Exception e) {
+            log.error("Found Exception:", e);
+        }
+        if(!result){
+            resBean.setCode(ResultCode.ERROR_SERVICE);
+            resBean.setContent(result);
+            resBean.setMsg("删除失败");
+        }
         return JSON.toJSONString(resBean);
     }
 
