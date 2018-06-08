@@ -56,6 +56,10 @@ public class StudentRegisterInVO {
     private String receiptNo;
     @ApiModelProperty(value = "培训费用",example = "培训费用")
     private String trainingFee;
+    @ApiModelProperty(value = "已交费用",example = "已交费用")
+    private String yetFee;
+    @ApiModelProperty(value = "未交费用",example = "未交费用")
+    private String noFee;
     @ApiModelProperty(value = "资料收集",example = "身份证,2寸照片,合同")
     private String dataGather;
     @ApiModelProperty(value = "备注",example = "备注")
