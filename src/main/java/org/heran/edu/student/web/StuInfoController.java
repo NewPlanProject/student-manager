@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
-import org.heran.edu.student.domain.ExamInfo;
 import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
 import org.heran.edu.student.util.data.ResultCode;
