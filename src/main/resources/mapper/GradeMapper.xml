@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="GradeMapper">
     
-    <sql id="gradeColumns">grade.id AS grade_id, grade.exam_manager_id AS grade_exam_manager_id, grade.stu_name AS grade_stu_name, grade.id_card AS grade_id_card, grade.test_number AS grade_test_number, grade.course_id AS grade_course_id, grade.course_name AS grade_course_name, grade.course_code AS grade_course_code, grade.course_mark AS grade_course_mark, grade.mark AS grade_mark, grade.exam_time AS grade_exam_time, grade.create_time AS grade_create_time, grade.create_user AS grade_create_user, grade.update_time AS grade_update_time, grade.update_user AS grade_update_user</sql>
+    <sql id="gradeColumns">grade.id AS grade_id, grade.exam_manager_id AS grade_exam_manager_id, grade.name AS grade_name, grade.id_card AS grade_id_card, grade.test_number AS grade_test_number, grade.course_id AS grade_course_id, grade.course_name AS grade_course_name, grade.course_code AS grade_course_code, grade.course_mark AS grade_course_mark, grade.mark AS grade_mark, grade.exam_time AS grade_exam_time, grade.create_time AS grade_create_time, grade.create_user AS grade_create_user, grade.update_time AS grade_update_time, grade.update_user AS grade_update_user</sql>
     
     <sql id="gradeWhere">
         <trim prefix="WHERE" prefixOverrides="AND">
             <if test="id!=null">AND grade.id = #{id}</if>
             <if test="examManagerId!=null">AND grade.exam_manager_id = #{examManagerId}</if>
-            <if test="stuName!=null">AND grade.stu_name like concat(concat('%',#{stuName}),'%')</if>
+            <if test="name!=null">AND grade.name like concat(concat('%',#{name}),'%')</if>
             <if test="idCard!=null">AND grade.id_card like concat(concat('%',#{idCard}),'%')</if>
             <if test="testNumber!=null">AND grade.test_number like concat(concat('%',#{testNumber}),'%')</if>
             <if test="courseId!=null">AND grade.course_id = #{courseId}</if>
             <if test="courseName!=null">AND grade.course_name like concat(concat('%',#{courseName}),'%')</if>
             <if test="courseCode!=null">AND grade.course_code like concat(concat('%',#{courseCode}),'%')</if>
             <if test="courseMark!=null">AND grade.course_mark = #{courseMark}</if>
-            <if test="mark!=null">AND grade.mark like concat(concat('%',#{mark}),'%')</if>
+            <if test="mark!=null">AND grade.mark like concat(concat('%',#{name}),'%')</if>
             <if test="examTime!=null">AND grade.exam_time = #{examTime}</if>
             <if test="createTime!=null">AND grade.create_time = #{createTime}</if>
             <if test="createUser!=null">AND grade.create_user = #{createUser}</if>
@@ -38,7 +38,6 @@
         <id column="grade_id" property="id" />
         <result column="grade_exam_manager_id" property="examManagerId" />
         <result column="grade_name" property="name" />
-        <result column="grade_stu_name" property="stuName" />
         <result column="grade_id_card" property="idCard" />
         <result column="grade_test_number" property="testNumber" />
         <result column="grade_course_id" property="courseId" />
@@ -89,7 +88,7 @@
         <trim prefix="(" prefixOverrides=",">
             <if test="id!=null">,id</if>
             <if test="examManagerId!=null">,exam_manager_id</if>
-            <if test="stuName!=null">,stu_name</if>
+            <if test="name!=null">,name</if>
             <if test="idCard!=null">,id_card</if>
             <if test="testNumber!=null">,test_number</if>
             <if test="courseId!=null">,course_id</if>
@@ -107,7 +106,7 @@
         <trim prefix="(" prefixOverrides=",">
             <if test="id!=null">,#{id}</if>
             <if test="examManagerId!=null">,#{examManagerId}</if>
-            <if test="stuName!=null">,#{stuName}</if>
+            <if test="name!=null">,#{name}</if>
             <if test="idCard!=null">,#{idCard}</if>
             <if test="testNumber!=null">,#{testNumber}</if>
             <if test="courseId!=null">,#{courseId}</if>
@@ -129,7 +128,7 @@
         <trim prefix="SET" prefixOverrides=",">
             <if test="id!=null">,id = #{id}</if>
             <if test="examManagerId!=null">,exam_manager_id = #{examManagerId}</if>
-            <if test="stuName!=null">,stu_name = #{stuName}</if>
+            <if test="name!=null">,name = #{name}</if>
             <if test="idCard!=null">,id_card = #{idCard}</if>
             <if test="testNumber!=null">,test_number = #{testNumber}</if>
             <if test="courseId!=null">,course_id = #{courseId}</if>

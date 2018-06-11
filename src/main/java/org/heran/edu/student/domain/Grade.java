@@ -15,7 +15,7 @@ public class Grade extends PageEntity implements Serializable {
     private static final long serialVersionUID = -1L;
     private String id;  //主键
     private String examManagerId;   //报考管理id
-    private String stuName;    //姓名
+    private String name;    //姓名
     private String idCard;  //身份证号码
     private String testNumber;  //考次号
     private String courseId;    //课程id

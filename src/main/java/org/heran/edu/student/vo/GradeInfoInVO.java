@@ -25,7 +25,7 @@ public class GradeInfoInVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date examTime;
     @ApiModelProperty(value = "姓名",example = "甲甲")
-    private String stuName;
+    private String name;
     @ApiModelProperty(value = "身份证号",example = "身份证号")
     private String idCard;
     @ApiModelProperty(value = "课程名称",example = "课程名称")
