@@ -17,7 +17,7 @@ public class GradeSaveInVO extends PageEntity implements Serializable {
     @ApiModelProperty(value = "报考信息id",example = "报考信息id")
     private String examManagerId;
     @ApiModelProperty(value = "姓名",example = "姓名")
-    private String name;
+    private String stuName;
     @ApiModelProperty(value = "身份证号码",example = "身份证号码")
     private String idCard;
     @ApiModelProperty(value = "考次号",example = "考次号")
