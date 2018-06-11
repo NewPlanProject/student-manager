@@ -96,8 +96,8 @@ class GradeServiceImpl implements GradeService {
         BeanUtils.copyProperties(gradeInfoInVO, grade);
         int totalSize=0;
         try {
-            grades = this.gradeDao.selectList(grade, "pageExamInfo");
-            totalSize = this.gradeDao.selectCount(grade,"pageExamInfoCount");
+            grades = this.gradeDao.selectList(grade, "pageGradeInfo");
+            totalSize = this.gradeDao.selectCount(grade,"pageGradeCount");
             resultMap = new HashMap<String, Object>();
             resultMap.put("rows",grades);
             resultMap.put("totalSize",totalSize);
