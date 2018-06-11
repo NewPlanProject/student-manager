@@ -23,7 +23,7 @@ public class Grade extends PageEntity implements Serializable {
     private String courseCode;  //课程代码
     private String courseMark;  //学分
     private String mark;    //成绩
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM")
     private Date examTime;  //考试时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;    //创建时间
