@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FinanceMapper">
+    
+    <sql id="financeColumns">finance.id AS finance_id, finance.name AS finance_name, finance.id_card AS finance_id_card, finance.old_academy AS finance_old_academy, finance.now_academy AS finance_now_academy, finance.major AS finance_major, finance.gradation AS finance_gradation, finance.school_all_cost AS finance_school_all_cost, finance.school_one AS finance_school_one, finance.school_one_date AS finance_school_one_date, finance.school_one_url AS finance_school_one_url, finance.school_two AS finance_school_two, finance.school_two_date AS finance_school_two_date, finance.school_two_url AS finance_school_two_url, finance.school_three AS finance_school_three, finance.school_three_date AS finance_school_three_date, finance.school_three_url AS finance_school_three_url, finance.teacher_all_cost AS finance_teacher_all_cost, finance.teacher_one AS finance_teacher_one, finance.teacher_one_date AS finance_teacher_one_date, finance.teacher_one_url AS finance_teacher_one_url, finance.teacher_two AS finance_teacher_two, finance.teacher_two_date AS finance_teacher_two_date, finance.teacher_two_url AS finance_teacher_two_url, finance.teacher_three AS finance_teacher_three, finance.teacher_three_date AS finance_teacher_three_date, finance.teacher_three_url AS finance_teacher_three_url, finance.create_time AS finance_create_time, finance.create_user AS finance_create_user, finance.update_time AS finance_update_time, finance.update_user AS finance_update_user</sql>
+    
+    <sql id="financeWhere">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="id!=null">AND finance.id = #{id}</if>
+            <if test="name!=null">AND finance.name = #{name}</if>
+            <if test="idCard!=null">AND finance.id_card = #{idCard}</if>
+            <if test="oldAcademy!=null">AND finance.old_academy = #{oldAcademy}</if>
+            <if test="nowAcademy!=null">AND finance.now_academy = #{nowAcademy}</if>
+            <if test="major!=null">AND finance.major = #{major}</if>
+            <if test="gradation!=null">AND finance.gradation = #{gradation}</if>
+            <if test="schoolAllCost!=null">AND finance.school_all_cost = #{schoolAllCost}</if>
+            <if test="schoolOne!=null">AND finance.school_one = #{schoolOne}</if>
+            <if test="schoolOneDate!=null">AND finance.school_one_date = #{schoolOneDate}</if>
+            <if test="schoolOneUrl!=null">AND finance.school_one_url = #{schoolOneUrl}</if>
+            <if test="schoolTwo!=null">AND finance.school_two = #{schoolTwo}</if>
+            <if test="schoolTwoDate!=null">AND finance.school_two_date = #{schoolTwoDate}</if>
+            <if test="schoolTwoUrl!=null">AND finance.school_two_url = #{schoolTwoUrl}</if>
+            <if test="schoolThree!=null">AND finance.school_three = #{schoolThree}</if>
+            <if test="schoolThreeDate!=null">AND finance.school_three_date = #{schoolThreeDate}</if>
+            <if test="schoolThreeUrl!=null">AND finance.school_three_url = #{schoolThreeUrl}</if>
+            <if test="teacherAllCost!=null">AND finance.teacher_all_cost = #{teacherAllCost}</if>
+            <if test="teacherOne!=null">AND finance.teacher_one = #{teacherOne}</if>
+            <if test="teacherOneDate!=null">AND finance.teacher_one_date = #{teacherOneDate}</if>
+            <if test="teacherOneUrl!=null">AND finance.teacher_one_url = #{teacherOneUrl}</if>
+            <if test="teacherTwo!=null">AND finance.teacher_two = #{teacherTwo}</if>
+            <if test="teacherTwoDate!=null">AND finance.teacher_two_date = #{teacherTwoDate}</if>
+            <if test="teacherTwoUrl!=null">AND finance.teacher_two_url = #{teacherTwoUrl}</if>
+            <if test="teacherThree!=null">AND finance.teacher_three = #{teacherThree}</if>
+            <if test="teacherThreeDate!=null">AND finance.teacher_three_date = #{teacherThreeDate}</if>
+            <if test="teacherThreeUrl!=null">AND finance.teacher_three_url = #{teacherThreeUrl}</if>
+            <if test="createTime!=null">AND finance.create_time = #{createTime}</if>
+            <if test="createUser!=null">AND finance.create_user = #{createUser}</if>
+            <if test="updateTime!=null">AND finance.update_time = #{updateTime}</if>
+            <if test="updateUser!=null">AND finance.update_user = #{updateUser}</if>
+        </trim>
+    </sql>
+
+    <sql id="order">
+        <if test="orderString!=null and sequence!=null">ORDER BY ${orderString} ${sequence}</if>
+    </sql>
+
+    <sql id="financeOrder">
+        <if test="orderString!=null">ORDER BY ${orderString}</if>
+    </sql>
+    
+    <sql id="financeLimit">LIMIT #{startLine},#{limitLine}</sql>
+    
+    <resultMap type="org.heran.edu.student.domain.Finance" id="financeResultMap">
+        <id column="finance_id" property="id" />
+        <result column="finance_name" property="name" />
+        <result column="finance_id_card" property="idCard" />
+        <result column="finance_old_academy" property="oldAcademy" />
+        <result column="finance_now_academy" property="nowAcademy" />
+        <result column="finance_major" property="major" />
+        <result column="finance_gradation" property="gradation" />
+        <result column="finance_school_all_cost" property="schoolAllCost" />
+        <result column="finance_school_one" property="schoolOne" />
+        <result column="finance_school_one_date" property="schoolOneDate" />
+        <result column="finance_school_one_url" property="schoolOneUrl" />
+        <result column="finance_school_two" property="schoolTwo" />
+        <result column="finance_school_two_date" property="schoolTwoDate" />
+        <result column="finance_school_two_url" property="schoolTwoUrl" />
+        <result column="finance_school_three" property="schoolThree" />
+        <result column="finance_school_three_date" property="schoolThreeDate" />
+        <result column="finance_school_three_url" property="schoolThreeUrl" />
+        <result column="finance_teacher_all_cost" property="teacherAllCost" />
+        <result column="finance_teacher_one" property="teacherOne" />
+        <result column="finance_teacher_one_date" property="teacherOneDate" />
+        <result column="finance_teacher_one_url" property="teacherOneUrl" />
+        <result column="finance_teacher_two" property="teacherTwo" />
+        <result column="finance_teacher_two_date" property="teacherTwoDate" />
+        <result column="finance_teacher_two_url" property="teacherTwoUrl" />
+        <result column="finance_teacher_three" property="teacherThree" />
+        <result column="finance_teacher_three_date" property="teacherThreeDate" />
+        <result column="finance_teacher_three_url" property="teacherThreeUrl" />
+        <result column="finance_create_time" property="createTime" />
+        <result column="finance_create_user" property="createUser" />
+        <result column="finance_update_time" property="updateTime" />
+        <result column="finance_update_user" property="updateUser" />
+    </resultMap>
+    
+    <select id="findDao" resultMap="financeResultMap">
+        SELECT
+        <include refid="financeColumns" />
+        FROM finance
+        <include refid="financeWhere" />
+        <include refid="financeOrder" />
+    </select>
+    
+    <select id="countDao" resultType="int">
+        SELECT COUNT(*) FROM finance
+        <include refid="financeWhere" />
+    </select>
+    
+    <select id="pageDao" resultMap="financeResultMap">
+        SELECT
+        <include refid="financeColumns" />
+        FROM finance
+        <include refid="financeWhere" />
+        <include refid="financeOrder" />
+        <include refid="financeLimit" />
+    </select>
+    
+    <select id="limitDao" resultMap="financeResultMap">
+        SELECT
+        <include refid="financeColumns" />
+        FROM finance
+        <include refid="financeWhere" />
+        <include refid="financeOrder" />
+        <include refid="financeLimit" />
+    </select>
+    
+    <insert id="saveDao">
+        INSERT INTO finance
+        <trim prefix="(" prefixOverrides=",">
+            <if test="id!=null">,id</if>
+            <if test="name!=null">,name</if>
+            <if test="idCard!=null">,id_card</if>
+            <if test="oldAcademy!=null">,old_academy</if>
+            <if test="nowAcademy!=null">,now_academy</if>
+            <if test="major!=null">,major</if>
+            <if test="gradation!=null">,gradation</if>
+            <if test="schoolAllCost!=null">,school_all_cost</if>
+            <if test="schoolOne!=null">,school_one</if>
+            <if test="schoolOneDate!=null">,school_one_date</if>
+            <if test="schoolOneUrl!=null">,school_one_url</if>
+            <if test="schoolTwo!=null">,school_two</if>
+            <if test="schoolTwoDate!=null">,school_two_date</if>
+            <if test="schoolTwoUrl!=null">,school_two_url</if>
+            <if test="schoolThree!=null">,school_three</if>
+            <if test="schoolThreeDate!=null">,school_three_date</if>
+            <if test="schoolThreeUrl!=null">,school_three_url</if>
+            <if test="teacherAllCost!=null">,teacher_all_cost</if>
+            <if test="teacherOne!=null">,teacher_one</if>
+            <if test="teacherOneDate!=null">,teacher_one_date</if>
+            <if test="teacherOneUrl!=null">,teacher_one_url</if>
+            <if test="teacherTwo!=null">,teacher_two</if>
+            <if test="teacherTwoDate!=null">,teacher_two_date</if>
+            <if test="teacherTwoUrl!=null">,teacher_two_url</if>
+            <if test="teacherThree!=null">,teacher_three</if>
+            <if test="teacherThreeDate!=null">,teacher_three_date</if>
+            <if test="teacherThreeUrl!=null">,teacher_three_url</if>
+            <if test="createTime!=null">,create_time</if>
+            <if test="createUser!=null">,create_user</if>
+            <if test="updateTime!=null">,update_time</if>
+            <if test="updateUser!=null">,update_user</if>
+        </trim>
+        ) VALUES
+        <trim prefix="(" prefixOverrides=",">
+            <if test="id!=null">,#{id}</if>
+            <if test="name!=null">,#{name}</if>
+            <if test="idCard!=null">,#{idCard}</if>
+            <if test="oldAcademy!=null">,#{oldAcademy}</if>
+            <if test="nowAcademy!=null">,#{nowAcademy}</if>
+            <if test="major!=null">,#{major}</if>
+            <if test="gradation!=null">,#{gradation}</if>
+            <if test="schoolAllCost!=null">,#{schoolAllCost}</if>
+            <if test="schoolOne!=null">,#{schoolOne}</if>
+            <if test="schoolOneDate!=null">,#{schoolOneDate}</if>
+            <if test="schoolOneUrl!=null">,#{schoolOneUrl}</if>
+            <if test="schoolTwo!=null">,#{schoolTwo}</if>
+            <if test="schoolTwoDate!=null">,#{schoolTwoDate}</if>
+            <if test="schoolTwoUrl!=null">,#{schoolTwoUrl}</if>
+            <if test="schoolThree!=null">,#{schoolThree}</if>
+            <if test="schoolThreeDate!=null">,#{schoolThreeDate}</if>
+            <if test="schoolThreeUrl!=null">,#{schoolThreeUrl}</if>
+            <if test="teacherAllCost!=null">,#{teacherAllCost}</if>
+            <if test="teacherOne!=null">,#{teacherOne}</if>
+            <if test="teacherOneDate!=null">,#{teacherOneDate}</if>
+            <if test="teacherOneUrl!=null">,#{teacherOneUrl}</if>
+            <if test="teacherTwo!=null">,#{teacherTwo}</if>
+            <if test="teacherTwoDate!=null">,#{teacherTwoDate}</if>
+            <if test="teacherTwoUrl!=null">,#{teacherTwoUrl}</if>
+            <if test="teacherThree!=null">,#{teacherThree}</if>
+            <if test="teacherThreeDate!=null">,#{teacherThreeDate}</if>
+            <if test="teacherThreeUrl!=null">,#{teacherThreeUrl}</if>
+            <if test="createTime!=null">,#{createTime}</if>
+            <if test="createUser!=null">,#{createUser}</if>
+            <if test="updateTime!=null">,#{updateTime}</if>
+            <if test="updateUser!=null">,#{updateUser}</if>
+        </trim>
+        )
+    </insert>
+    
+    <update id="updateDao">
+        UPDATE finance
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="id!=null">,id = #{id}</if>
+            <if test="name!=null">,name = #{name}</if>
+            <if test="idCard!=null">,id_card = #{idCard}</if>
+            <if test="oldAcademy!=null">,old_academy = #{oldAcademy}</if>
+            <if test="nowAcademy!=null">,now_academy = #{nowAcademy}</if>
+            <if test="major!=null">,major = #{major}</if>
+            <if test="gradation!=null">,gradation = #{gradation}</if>
+            <if test="schoolAllCost!=null">,school_all_cost = #{schoolAllCost}</if>
+            <if test="schoolOne!=null">,school_one = #{schoolOne}</if>
+            <if test="schoolOneDate!=null">,school_one_date = #{schoolOneDate}</if>
+            <if test="schoolOneUrl!=null">,school_one_url = #{schoolOneUrl}</if>
+            <if test="schoolTwo!=null">,school_two = #{schoolTwo}</if>
+            <if test="schoolTwoDate!=null">,school_two_date = #{schoolTwoDate}</if>
+            <if test="schoolTwoUrl!=null">,school_two_url = #{schoolTwoUrl}</if>
+            <if test="schoolThree!=null">,school_three = #{schoolThree}</if>
+            <if test="schoolThreeDate!=null">,school_three_date = #{schoolThreeDate}</if>
+            <if test="schoolThreeUrl!=null">,school_three_url = #{schoolThreeUrl}</if>
+            <if test="teacherAllCost!=null">,teacher_all_cost = #{teacherAllCost}</if>
+            <if test="teacherOne!=null">,teacher_one = #{teacherOne}</if>
+            <if test="teacherOneDate!=null">,teacher_one_date = #{teacherOneDate}</if>
+            <if test="teacherOneUrl!=null">,teacher_one_url = #{teacherOneUrl}</if>
+            <if test="teacherTwo!=null">,teacher_two = #{teacherTwo}</if>
+            <if test="teacherTwoDate!=null">,teacher_two_date = #{teacherTwoDate}</if>
+            <if test="teacherTwoUrl!=null">,teacher_two_url = #{teacherTwoUrl}</if>
+            <if test="teacherThree!=null">,teacher_three = #{teacherThree}</if>
+            <if test="teacherThreeDate!=null">,teacher_three_date = #{teacherThreeDate}</if>
+            <if test="teacherThreeUrl!=null">,teacher_three_url = #{teacherThreeUrl}</if>
+            <if test="createTime!=null">,create_time = #{createTime}</if>
+            <if test="createUser!=null">,create_user = #{createUser}</if>
+            <if test="updateTime!=null">,update_time = #{updateTime}</if>
+            <if test="updateUser!=null">,update_user = #{updateUser}</if>
+        </trim>
+        <trim prefix="WHERE" prefixOverrides="AND">AND id = #{id}</trim>
+    </update>
+    
+    <delete id="deleteDao">
+        DELETE FROM finance
+        <trim prefix="WHERE" prefixOverrides="AND">AND id = #{id}</trim>
+    </delete>
+
+    <select id="pageFinanceInfo" resultMap="financeResultMap">
+        SELECT
+        <include refid="financeColumns" />
+        FROM finance
+        <include refid="financeWhere" />
+        <include refid="order" />
+        <include refid="financeLimit" />
+    </select>
+
+    <select id="pageFinanceCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM finance
+        <include refid="financeWhere" />
+    </select>
+    
+</mapper>
