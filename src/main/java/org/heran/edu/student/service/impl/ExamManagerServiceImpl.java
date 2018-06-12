@@ -3,13 +3,12 @@ package org.heran.edu.student.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.map.HashedMap;
 import org.heran.edu.student.dao.ExamManagerDao;
+import org.heran.edu.student.dao.GradeDao;
 import org.heran.edu.student.dao.StuInfoDao;
-import org.heran.edu.student.domain.ExamInfo;
 import org.heran.edu.student.domain.ExamManager;
+import org.heran.edu.student.domain.Grade;
 import org.heran.edu.student.domain.StuInfo;
-import org.heran.edu.student.service.ExamInfoService;
 import org.heran.edu.student.service.ExamManagerService;
-import org.heran.edu.student.service.StuInfoService;
 import org.heran.edu.student.util.data.Result;
 import org.heran.edu.student.util.data.ResultCode;
 import org.heran.edu.student.util.dispose.CodeUtil;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -38,6 +36,9 @@ class ExamManagerServiceImpl implements ExamManagerService {
     private ExamManagerDao examManagerDao;
     @Autowired
     private StuInfoDao stuInfoDao;
+    @Autowired
+    private GradeDao gradeDao;
+
 
     @Override
     public Result<Boolean> add(ExamMangerSaveInVO examMangerSaveInVO) {
@@ -81,11 +82,16 @@ class ExamManagerServiceImpl implements ExamManagerService {
         BeanUtils.copyProperties(examMangerUpdateInVO, examManager);
         try {
             examManager.setUpdateTime(new Date());
-            Date d = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-            examManager.setTestNumber(sdf.format(d)+examManager.getStuRecord());
             //修改操作
             this.examManagerDao.update(examManager);
+            //修改成绩管理中的学生信息
+            Grade grade=new Grade();
+            grade.setExamManagerId(examManager.getId());
+            grade.setName(examManager.getName());
+            grade.setIdCard(examManager.getIdCard());
+            grade.setUpdateTime(new Date());
+            //修改操作
+            this.gradeDao.update(grade,"updateByEid");
             //给返回值赋值
             resBean.setContent(true);
             resBean.setMsg("修改成功");

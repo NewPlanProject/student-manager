@@ -163,5 +163,25 @@
         SELECT COUNT(id) FROM grade
         <include refid="gradeWhere" />
     </select>
+
+    <update id="updateByEid">
+        UPDATE grade
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="name!=null">,name = #{name}</if>
+            <if test="idCard!=null">,id_card = #{idCard}</if>
+            <if test="testNumber!=null">,test_number = #{testNumber}</if>
+            <if test="courseId!=null">,course_id = #{courseId}</if>
+            <if test="courseName!=null">,course_name = #{courseName}</if>
+            <if test="courseCode!=null">,course_code = #{courseCode}</if>
+            <if test="courseMark!=null">,course_mark = #{courseMark}</if>
+            <if test="mark!=null">,mark = #{mark}</if>
+            <if test="examTime!=null">,exam_time = #{examTime}</if>
+            <if test="createTime!=null">,create_time = #{createTime}</if>
+            <if test="createUser!=null">,create_user = #{createUser}</if>
+            <if test="updateTime!=null">,update_time = #{updateTime}</if>
+            <if test="updateUser!=null">,update_user = #{updateUser}</if>
+        </trim>
+        <trim prefix="WHERE" prefixOverrides="AND">AND exam_manager_id = #{examManagerId}</trim>
+    </update>
     
 </mapper>
