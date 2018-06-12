@@ -42,8 +42,10 @@ class FinanceServiceImpl implements FinanceService {
         finance.setId(id);
         try {
             Finance finance1 = this.financeDao.selectOne(finance);
+            FinanceUpdateInVO financeUpdateInVO=new FinanceUpdateInVO();
+            BeanUtils.copyProperties(finance1,financeUpdateInVO);
             resultMap = new HashMap<String, Object>();
-            resultMap.put("rows",finance1);
+            resultMap.put("rows",financeUpdateInVO);
         }catch (Exception e){
             log.error("Find Exception", e);
         }

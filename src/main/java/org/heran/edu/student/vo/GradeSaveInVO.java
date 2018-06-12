@@ -11,9 +11,8 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class GradeSaveInVO extends PageEntity implements Serializable {
+public class GradeSaveInVO{
 
-    private static final long serialVersionUID = -1L;
     @ApiModelProperty(value = "报考信息id",example = "报考信息id")
     private String examManagerId;
     @ApiModelProperty(value = "姓名",example = "姓名")

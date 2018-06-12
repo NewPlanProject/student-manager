@@ -116,8 +116,10 @@ class GradeServiceImpl implements GradeService {
         grade.setId(id);
         try {
             Grade grade1 = this.gradeDao.selectOne(grade);
+            GradeOutVO gradeOutVO=new GradeOutVO();
+            BeanUtils.copyProperties(grade1,gradeOutVO);
             resultMap = new HashMap<String, Object>();
-            resultMap.put("rows",grade1);
+            resultMap.put("rows",gradeOutVO);
         }catch (Exception e){
             log.error("Find Exception", e);
         }

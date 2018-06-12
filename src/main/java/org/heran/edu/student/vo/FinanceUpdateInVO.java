@@ -11,9 +11,8 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class FinanceUpdateInVO extends PageEntity implements Serializable {
+public class FinanceUpdateInVO{
 
-    private static final long serialVersionUID = -1L;
     @ApiModelProperty(value = "主键",example = "主键")
     private String id;
     @ApiModelProperty(value = "姓名",example = "姓名")

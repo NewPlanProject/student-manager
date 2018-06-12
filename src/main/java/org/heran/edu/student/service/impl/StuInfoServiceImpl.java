@@ -142,8 +142,10 @@ class StuInfoServiceImpl implements StuInfoService {
         stuInfo.setId(id);
         try {
             StuInfo stuInfo1 = this.stuInfoDao.selectOne(stuInfo);
+            StudentUpdateInVO studentUpdateInVO=new StudentUpdateInVO();
+            BeanUtils.copyProperties(stuInfo1,studentUpdateInVO);
             resultMap = new HashMap<String, Object>();
-            resultMap.put("rows",stuInfo1);
+            resultMap.put("rows",studentUpdateInVO);
         }catch (Exception e){
             log.error("Find Exception", e);
         }
