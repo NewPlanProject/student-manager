@@ -2,9 +2,7 @@ package org.heran.edu.student.util.dispose;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -354,6 +352,18 @@ public class StringUtil {
 		if (parentZipcode == null) return false;
 		
 		return parentZipcode.matches("^[1-9][0-9]{5}$");
+	}
+
+	public static String getException(Exception e) {
+		try {
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			pw.close();
+			return sw.toString();
+		} catch (Exception e2) {
+			return "bad getException";
+		}
 	}
 
 }
