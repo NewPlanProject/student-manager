@@ -22,7 +22,7 @@ public class GradeInfoInVO {
     @ApiModelProperty(value = "正序 倒序",example = "DESC")
     private String sequence = "DESC";
     @ApiModelProperty(value = "考试时间",example = "考试时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM")
     private Date examTime;
     @ApiModelProperty(value = "姓名",example = "甲甲")
     private String name;
