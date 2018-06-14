@@ -287,12 +287,12 @@
             <if test="payment!=null">,payment = #{payment}</if>
             <if test="dataGather!=null">,data_gather = #{dataGather}</if>
             <if test="remark!=null">,remark = #{remark}</if>
-            <if test="cardFrontUrl!=null">card_front_url= #{cardFrontUrl}</if>
-            <if test="cardReverseUrl!=null">card_reverse_url =#{cardReverseUrl}</if>
-            <if test="photoUrl!=null">photo_url=#{photoUrl}</if>
-            <if test="contractUrl!=null">contract_url=#{contractUrl}</if>
-            <if test="receiptUrl!=null">receipt_url=#{receiptUrl}</if>
-            <if test="diplomaUrl!=null">diploma_url=#{diplomaUrl}</if>
+            <if test="cardFrontUrl!=null">,card_front_url= #{cardFrontUrl}</if>
+            <if test="cardReverseUrl!=null">,card_reverse_url =#{cardReverseUrl}</if>
+            <if test="photoUrl!=null">,photo_url=#{photoUrl}</if>
+            <if test="contractUrl!=null">,contract_url=#{contractUrl}</if>
+            <if test="receiptUrl!=null">,receipt_url=#{receiptUrl}</if>
+            <if test="diplomaUrl!=null">,diploma_url=#{diplomaUrl}</if>
             <if test="createtime!=null">,createtime = #{createtime}</if>
             <if test="createUser!=null">,create_user = #{createUser}</if>
             <if test="updatetime!=null">,updatetime = #{updatetime}</if>
