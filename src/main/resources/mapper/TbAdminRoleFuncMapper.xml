@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="TbAdminRoleFuncMapper">
     
-    <sql id="tbAdminRoleFuncColumns">tb_admin_role_func.role_fun_id AS tb_admin_role_func_role_fun_id, tb_admin_role_func.role_id AS tb_admin_role_func_role_id, tb_admin_role_func.fun_module_code AS tb_admin_role_func_fun_module_code, tb_admin_role_func.remark AS tb_admin_role_func_remark, tb_admin_role_func.create_user AS tb_admin_role_func_create_user, tb_admin_role_func.createtime AS tb_admin_role_func_createtime</sql>
+    <sql id="tbAdminRoleFuncColumns">tb_admin_role_func.role_fun_id AS tb_admin_role_func_role_fun_id, tb_admin_role_func.role_id AS tb_admin_role_func_role_id, tb_admin_role_func.fun_module_code AS tb_admin_role_func_fun_module_code, tb_admin_role_func.remark AS tb_admin_role_func_remark, tb_admin_role_func.create_user AS tb_admin_role_func_create_user, tb_admin_role_func.create_time AS tb_admin_role_func_create_time</sql>
     
     <sql id="tbAdminRoleFuncWhere">
         <trim prefix="WHERE" prefixOverrides="AND">
@@ -11,8 +11,8 @@
             <if test="funModuleCode!=null">AND tb_admin_role_func.fun_module_code = #{funModuleCode}</if>
             <if test="remark!=null">AND tb_admin_role_func.remark = #{remark}</if>
             <if test="createUser!=0">AND tb_admin_role_func.create_user = #{createUser}</if>
-            <if test="startDate!=null">AND tb_admin_role_func.createtime &gt;= #{startDate}</if>
-            <if test="endDate!=null">AND tb_admin_role_func.createtime &lt;=#{endDate}</if>
+            <if test="startDate!=null">AND tb_admin_role_func.create_time &gt;= #{startDate}</if>
+            <if test="endDate!=null">AND tb_admin_role_func.create_time &lt;=#{endDate}</if>
         </trim>
     </sql>
 
@@ -32,7 +32,7 @@
         <result column="tb_admin_role_func_fun_module_code" property="funModuleCode" />
         <result column="tb_admin_role_func_remark" property="remark" />
         <result column="tb_admin_role_func_create_user" property="createUser" />
-        <result column="tb_admin_role_func_createtime" property="createtime" />
+        <result column="tb_admin_role_func_create_time" property="createTime" />
     </resultMap>
     
     <select id="findDao" resultMap="tbAdminRoleFuncResultMap">
@@ -74,7 +74,7 @@
             <if test="funModuleCode!=null">,fun_module_code</if>
             <if test="remark!=null">,remark</if>
             <if test="createUser!=0">,create_user</if>
-            <if test="createtime!=null">,createtime</if>
+            <if test="createTime!=null">,create_time</if>
         </trim>
         ) VALUES
         <trim prefix="(" prefixOverrides=",">
@@ -83,7 +83,7 @@
             <if test="funModuleCode!=null">,#{funModuleCode}</if>
             <if test="remark!=null">,#{remark}</if>
             <if test="createUser!=0">,#{createUser}</if>
-            <if test="createtime!=null">,#{createtime}</if>
+            <if test="createTime!=null">,#{createTime}</if>
         </trim>
         )
     </insert>
@@ -96,7 +96,7 @@
             <if test="funModuleCode!=null">,fun_module_code = #{funModuleCode}</if>
             <if test="remark!=null">,remark = #{remark}</if>
             <if test="createUser!=0">,create_user = #{createUser}</if>
-            <if test="createtime!=null">,createtime = #{createtime}</if>
+            <if test="createTime!=null">,create_time = #{createTime}</if>
         </trim>
         <trim prefix="WHERE" prefixOverrides="AND">AND role_fun_id = #{roleFunId}</trim>
     </update>

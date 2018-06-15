@@ -1,6 +1,8 @@
 package org.heran.edu.student.domain;
 import java.io.Serializable;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.heran.edu.student.util.mybatis.domain.PageEntity;
@@ -10,8 +12,8 @@ import org.heran.edu.student.util.mybatis.domain.PageEntity;
 public class TbAdmin extends PageEntity implements Serializable {
 
     private static final long serialVersionUID = -1L;
-    private long adminId;
-    private long roleId;
+    private Long adminId;
+    private Long roleId;
     private String name;
     private String realName;
     private String loginPwd;
@@ -21,9 +23,11 @@ public class TbAdmin extends PageEntity implements Serializable {
     private String lastLoginTime;
     private String remark;
     private String status;
-    private long createUser;
-    private java.sql.Timestamp createtime;
-    private long updateUser;
-    private java.sql.Timestamp updatetime;
+    private Long createUser;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+    private Long updateUser;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
 
 }

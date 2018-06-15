@@ -1,7 +1,9 @@
 package org.heran.edu.student.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.heran.edu.student.util.mybatis.domain.PageEntity;
@@ -20,7 +22,8 @@ public class TbAdminFunction extends PageEntity implements Serializable {
     private String code;
     private String isDisabled;
     private long createUser;
-    private java.sql.Timestamp createtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createtime;
     private long sort;
     private String isDel;
 

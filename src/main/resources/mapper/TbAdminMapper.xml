@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="TbAdminMapper">
     
-    <sql id="tbAdminColumns">tb_admin.admin_id AS tb_admin_admin_id, tb_admin.role_id AS tb_admin_role_id, tb_admin.name AS tb_admin_name, tb_admin.real_name AS tb_admin_real_name, tb_admin.login_pwd AS tb_admin_login_pwd, tb_admin.admin_phone AS tb_admin_admin_phone, tb_admin.admin_email AS tb_admin_admin_email, tb_admin.last_login_ip AS tb_admin_last_login_ip, tb_admin.last_login_time AS tb_admin_last_login_time, tb_admin.remark AS tb_admin_remark, tb_admin.status AS tb_admin_status, tb_admin.create_user AS tb_admin_create_user, tb_admin.createtime AS tb_admin_createtime, tb_admin.update_user AS tb_admin_update_user, tb_admin.updatetime AS tb_admin_updatetime</sql>
+    <sql id="tbAdminColumns">tb_admin.admin_id AS tb_admin_admin_id, tb_admin.role_id AS tb_admin_role_id, tb_admin.name AS tb_admin_name, tb_admin.real_name AS tb_admin_real_name, tb_admin.login_pwd AS tb_admin_login_pwd, tb_admin.admin_phone AS tb_admin_admin_phone, tb_admin.admin_email AS tb_admin_admin_email, tb_admin.last_login_ip AS tb_admin_last_login_ip, tb_admin.last_login_time AS tb_admin_last_login_time, tb_admin.remark AS tb_admin_remark, tb_admin.status AS tb_admin_status, tb_admin.create_user AS tb_admin_create_user, tb_admin.create_time AS tb_admin_create_time, tb_admin.update_user AS tb_admin_update_user, tb_admin.update_time AS tb_admin_update_time</sql>
     
     <sql id="tbAdminWhere">
         <trim prefix="WHERE" prefixOverrides="AND">
@@ -18,10 +18,8 @@
             <if test="remark!=null">AND tb_admin.remark = #{remark}</if>
             <if test="status!=null">AND tb_admin.status = #{status}</if>
             <if test="createUser!=0">AND tb_admin.create_user = #{createUser}</if>
-            <if test="startDate!=null">AND tb_admin.createtime &gt;= #{startDate}</if>
-            <if test="endDate!=null">AND tb_admin.createtime &lt;=#{endDate}</if>
             <if test="updateUser!=0">AND tb_admin.update_user = #{updateUser}</if>
-            <if test="updatetime!=null">AND tb_admin.updatetime = #{updatetime}</if>
+            <if test="updateTime!=null">AND tb_admin.update_time = #{updateTime}</if>
         </trim>
     </sql>
 
@@ -48,9 +46,9 @@
         <result column="tb_admin_remark" property="remark" />
         <result column="tb_admin_status" property="status" />
         <result column="tb_admin_create_user" property="createUser" />
-        <result column="tb_admin_createtime" property="createtime" />
+        <result column="tb_admin_create_time" property="createTime" />
         <result column="tb_admin_update_user" property="updateUser" />
-        <result column="tb_admin_updatetime" property="updatetime" />
+        <result column="tb_admin_update_time" property="updateTime" />
     </resultMap>
     
     <select id="findDao" resultMap="tbAdminResultMap">
@@ -99,9 +97,9 @@
             <if test="remark!=null">,remark</if>
             <if test="status!=null">,status</if>
             <if test="createUser!=0">,create_user</if>
-            <if test="createtime!=null">,createtime</if>
+            <if test="createTime!=null">,create_time</if>
             <if test="updateUser!=0">,update_user</if>
-            <if test="updatetime!=null">,updatetime</if>
+            <if test="updateTime!=null">,update_time</if>
         </trim>
         ) VALUES
         <trim prefix="(" prefixOverrides=",">
@@ -117,9 +115,9 @@
             <if test="remark!=null">,#{remark}</if>
             <if test="status!=null">,#{status}</if>
             <if test="createUser!=0">,#{createUser}</if>
-            <if test="createtime!=null">,#{createtime}</if>
+            <if test="createTime!=null">,#{createTime}</if>
             <if test="updateUser!=0">,#{updateUser}</if>
-            <if test="updatetime!=null">,#{updatetime}</if>
+            <if test="updateTime!=null">,#{updateTime}</if>
         </trim>
         )
     </insert>
@@ -139,9 +137,9 @@
             <if test="remark!=null">,remark = #{remark}</if>
             <if test="status!=null">,status = #{status}</if>
             <if test="createUser!=0">,create_user = #{createUser}</if>
-            <if test="createtime!=null">,createtime = #{createtime}</if>
+            <if test="createTime!=null">,create_time = #{createTime}</if>
             <if test="updateUser!=0">,update_user = #{updateUser}</if>
-            <if test="updatetime!=null">,updatetime = #{updatetime}</if>
+            <if test="updateTime!=null">,update_time = #{updateTime}</if>
         </trim>
         <trim prefix="WHERE" prefixOverrides="AND">AND admin_id = #{adminId}</trim>
     </update>
@@ -150,5 +148,18 @@
         DELETE FROM tb_admin
         <trim prefix="WHERE" prefixOverrides="AND">AND admin_id = #{adminId}</trim>
     </delete>
-    
+
+    <!--<select id="pageAdmin" resultMap="tbAdminResultMap">
+        SELECT
+        <include refid=""/>
+    </select>-->
+    <select id="findAdminByEmail" resultMap="tbAdminResultMap">
+        SELECT
+        <include refid="tbAdminColumns"/>
+        FROM tb_admin
+        WHERE
+        admin_email = #{adminEmail}
+        LIMIT 1
+    </select>
+
 </mapper>

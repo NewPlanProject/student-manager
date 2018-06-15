@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="TbAdminRoleMapper">
     
-    <sql id="tbAdminRoleColumns">tb_admin_role.id AS tb_admin_role_id, tb_admin_role.role_name AS tb_admin_role_role_name, tb_admin_role.remark AS tb_admin_role_remark, tb_admin_role.is_disabled AS tb_admin_role_is_disabled, tb_admin_role.create_user AS tb_admin_role_create_user, tb_admin_role.createtime AS tb_admin_role_createtime, tb_admin_role.is_del AS tb_admin_role_is_del</sql>
+    <sql id="tbAdminRoleColumns">tb_admin_role.id AS tb_admin_role_id, tb_admin_role.role_name AS tb_admin_role_role_name, tb_admin_role.remark AS tb_admin_role_remark, tb_admin_role.is_disabled AS tb_admin_role_is_disabled, tb_admin_role.create_user AS tb_admin_role_create_user, tb_admin_role.create_time AS tb_admin_role_create_time, tb_admin_role.is_del AS tb_admin_role_is_del</sql>
     
     <sql id="tbAdminRoleWhere">
         <trim prefix="WHERE" prefixOverrides="AND">
@@ -11,8 +11,8 @@
             <if test="remark!=null">AND tb_admin_role.remark = #{remark}</if>
             <if test="isDisabled!=null">AND tb_admin_role.is_disabled = #{isDisabled}</if>
             <if test="createUser!=0">AND tb_admin_role.create_user = #{createUser}</if>
-            <if test="startDate!=null">AND tb_admin_role.createtime &gt;= #{startDate}</if>
-            <if test="endDate!=null">AND tb_admin_role.createtime &lt;=#{endDate}</if>
+            <if test="startDate!=null">AND tb_admin_role.create_time &gt;= #{startDate}</if>
+            <if test="endDate!=null">AND tb_admin_role.create_time &lt;=#{endDate}</if>
             <if test="isDel!=null">AND tb_admin_role.is_del = #{isDel}</if>
         </trim>
     </sql>
@@ -33,7 +33,7 @@
         <result column="tb_admin_role_remark" property="remark" />
         <result column="tb_admin_role_is_disabled" property="isDisabled" />
         <result column="tb_admin_role_create_user" property="createUser" />
-        <result column="tb_admin_role_createtime" property="createtime" />
+        <result column="tb_admin_role_create_time" property="createTime" />
         <result column="tb_admin_role_is_del" property="isDel" />
     </resultMap>
     
@@ -76,7 +76,7 @@
             <if test="remark!=null">,remark</if>
             <if test="isDisabled!=null">,is_disabled</if>
             <if test="createUser!=0">,create_user</if>
-            <if test="createtime!=null">,createtime</if>
+            <if test="createTime!=null">,create_time</if>
             <if test="isDel!=null">,is_del</if>
         </trim>
         ) VALUES
@@ -86,7 +86,7 @@
             <if test="remark!=null">,#{remark}</if>
             <if test="isDisabled!=null">,#{isDisabled}</if>
             <if test="createUser!=0">,#{createUser}</if>
-            <if test="createtime!=null">,#{createtime}</if>
+            <if test="createTime!=null">,#{createTime}</if>
             <if test="isDel!=null">,#{isDel}</if>
         </trim>
         )
@@ -100,7 +100,7 @@
             <if test="remark!=null">,remark = #{remark}</if>
             <if test="isDisabled!=null">,is_disabled = #{isDisabled}</if>
             <if test="createUser!=0">,create_user = #{createUser}</if>
-            <if test="createtime!=null">,createtime = #{createtime}</if>
+            <if test="createTime!=null">,create_time = #{createTime}</if>
             <if test="isDel!=null">,is_del = #{isDel}</if>
         </trim>
         <trim prefix="WHERE" prefixOverrides="AND">AND id = #{id}</trim>
