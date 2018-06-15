@@ -15,7 +15,7 @@
             <if test="courseName!=null">AND grade.course_name like concat(concat('%',#{courseName}),'%')</if>
             <if test="courseCode!=null">AND grade.course_code like concat(concat('%',#{courseCode}),'%')</if>
             <if test="courseMark!=null">AND grade.course_mark = #{courseMark}</if>
-            <if test="mark!=null">AND grade.mark like concat(concat('%',#{name}),'%')</if>
+            <if test="mark!=null">AND grade.mark like concat(concat('%',#{mark}),'%')</if>
             <if test="examTime!=null">AND grade.exam_time = #{examTime}</if>
             <if test="createTime!=null">AND grade.create_time = #{createTime}</if>
             <if test="createUser!=null">AND grade.create_user = #{createUser}</if>

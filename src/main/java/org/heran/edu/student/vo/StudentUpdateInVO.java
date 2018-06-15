@@ -38,6 +38,10 @@ public class StudentUpdateInVO {
     private String nowAcademy;
     @ApiModelProperty(value = "专业",example = "金融")
     private String major;
+    @ApiModelProperty(value = "已交费用",example = "已交费用")
+    private String yetFee;
+    @ApiModelProperty(value = "未交费用",example = "未交费用")
+    private String noFee;
     @ApiModelProperty(value = "报考项目(自考/成考/网教/职业资格证/MBA)",example = "MBA")
     private String registionItem;
     @ApiModelProperty(value = "考期",example = "考期")

@@ -154,8 +154,10 @@ class ExamManagerServiceImpl implements ExamManagerService {
         examManager.setId(id);
         try {
             ExamManager examManager1 = this.examManagerDao.selectOne(examManager);
+            ExamMangerDetailOutVO examMangerDetailOutVO=new ExamMangerDetailOutVO();
+            BeanUtils.copyProperties(examManager1,examMangerDetailOutVO);
             resultMap = new HashMap<String, Object>();
-            resultMap.put("rows",examManager1);
+            resultMap.put("rows",examMangerDetailOutVO);
         }catch (Exception e){
             log.error("Find Exception", e);
         }
