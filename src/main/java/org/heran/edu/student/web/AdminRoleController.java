@@ -34,7 +34,7 @@ public class AdminRoleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "adminRoleVo", value = "管理员查询", required = false, paramType = "body", dataType = "AdminRoleVo")
     })
-    @PutMapping(value = "selectAdminRolePage", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "selectAdminRolePage", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String selectAdminPage(@RequestBody AdminRoleVo adminRoleVo){
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
@@ -52,7 +52,7 @@ public class AdminRoleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "adminRoleAddVo", value = "新增角色", required = false, paramType = "body", dataType = "AdminRoleAddVo")
     })
-    @PutMapping(value = "adminRoleAddVo", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "adminRoleAddVo", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String addAdmin(@RequestBody AdminRoleAddVo adminRoleAddVo){
         Result<Boolean> resBean = new Result();
@@ -89,7 +89,7 @@ public class AdminRoleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "ids", required = true, dataType = "string", paramType = "query")
     })
-    @PutMapping(value = "deleteAdmin", produces = "application/json;charset=UTF-8")
+    @DeleteMapping(value = "deleteAdmin", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String deleteAdmin(@RequestParam(value = "ids") String ids){
         Result<Boolean> resBean = new Result();

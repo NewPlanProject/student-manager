@@ -36,7 +36,7 @@ public class AdminController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "adminVO", value = "管理员查询", required = false, paramType = "body", dataType = "AdminVo")
     })
-    @PutMapping(value = "selectAdminPage", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "selectAdminPage", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String selectAdminPage(@RequestBody AdminVo adminVo){
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>(ResultCode.SUCCESS,"查询成功",null);
@@ -53,7 +53,7 @@ public class AdminController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "adminAddVo", value = "管理员添加", required = false, paramType = "body", dataType = "AdminAddVo")
     })
-    @PutMapping(value = "addAdmin", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "addAdmin", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String addAdmin(@RequestBody AdminAddVo adminAddVo){
         Result<Boolean> resBean = new Result();
@@ -90,7 +90,7 @@ public class AdminController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "管理员删除", required = true, dataType = "string", paramType = "query")
     })
-    @PutMapping(value = "deleteAdmin", produces = "application/json;charset=UTF-8")
+    @DeleteMapping(value = "deleteAdmin", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String deleteAdmin(@RequestParam (value = "ids") String ids){
         Result<Boolean> resBean = new Result();
@@ -108,7 +108,7 @@ public class AdminController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "密码重置", required = true, dataType = "string", paramType = "query")
     })
-    @PutMapping(value = "resetPassWord", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "resetPassWord", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String resetPassWord(@RequestParam (value = "ids") String ids){
         Result<Boolean> resBean = new Result();
@@ -127,7 +127,7 @@ public class AdminController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "adminLoginVo", value = "管理员登录", required = false, paramType = "body", dataType = "AdminLoginVo")
     })
-    @PutMapping(value = "loginAdmin", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "loginAdmin", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String loginAdmin(@RequestBody AdminLoginVo adminLoginVo){
         Result<Map<String,Object>> resBean = new Result<Map<String,Object>>();
@@ -145,7 +145,7 @@ public class AdminController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "管理员登出", required = true, dataType = "Long", paramType = "query")
     })
-    @PutMapping(value = "loginOffAdmin", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "loginOffAdmin", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String loginAdmin(@RequestParam (value = "id") Long id){
         Result<Boolean> resBean = new Result();
