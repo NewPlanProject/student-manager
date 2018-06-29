@@ -42,6 +42,8 @@ public class StudentUpdateInVO {
     private String yetFee;
     @ApiModelProperty(value = "未交费用",example = "未交费用")
     private String noFee;
+    @ApiModelProperty(value = "考区",example = "考区")
+    private String examArae;
     @ApiModelProperty(value = "报考项目(自考/成考/网教/职业资格证/MBA)",example = "MBA")
     private String registionItem;
     @ApiModelProperty(value = "考期",example = "考期")
@@ -79,4 +81,7 @@ public class StudentUpdateInVO {
     @ApiModelProperty(value = "报名时间",example = "2018-04-25 06:08:28")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date enlistsTime;
+    @ApiModelProperty(value = "注册时间",example = "2018-04-25 06:08:28")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date createtime;    //注册时间
 }
