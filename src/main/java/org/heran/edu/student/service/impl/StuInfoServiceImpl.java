@@ -39,13 +39,13 @@ class StuInfoServiceImpl implements StuInfoService {
         StuInfo stuInfo = new StuInfo();
         BeanUtils.copyProperties(studentRegisterInVO, stuInfo);
         try {
-            //检查是否有重复学生信息
+            /*//检查是否有重复学生信息
             List<StuInfo> stuInfos = stuInfoDao.selectList(stuInfo, "getStuInObject");
             if(stuInfos.size()>0){
                 resBean.setContent(false);
                 resBean.setMsg("学生信息重复");
                 resBean.setCode(ResultCode.ERROR_PARAMETER);
-            }else{
+            }else{*/
                 //生成uuid
                 String uuid = UUIDUtil.creatUUID();
                 stuInfo.setId(uuid);
@@ -58,7 +58,7 @@ class StuInfoServiceImpl implements StuInfoService {
                 resBean.setContent(true);
                 resBean.setMsg("保存成功");
                 resBean.setCode(ResultCode.SUCCESS);
-            }
+//            }
         } catch (Exception e) {
             log.error("Find Exception", e);
         }
